@@ -258,6 +258,11 @@ main > div:has(.carousel-hero) {
   background-color: transparent;
   cursor: pointer;
   pointer-events: auto;
+  outline: none;
+}
+
+.carousel-hero .carousel-hero-navigation-buttons button:focus {
+  outline: none;
 }
 
 .carousel-hero .carousel-hero-navigation-buttons button:hover,
