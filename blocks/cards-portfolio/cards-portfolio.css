@@ -1,0 +1,102 @@
+/**
+ * Cards Portfolio Block
+ * Product cards displayed below accordion in homepage-portfolio section
+ * Visibility controlled by accordion item selection
+ */
+
+.cards-portfolio {
+  display: none;
+  padding: var(--spacing-l) 0;
+}
+
+.cards-portfolio.active {
+  display: block;
+}
+
+.cards-portfolio h2 {
+  display: none; /* Title used for matching, not displayed */
+}
+
+.cards-portfolio .cards-portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-m);
+}
+
+@media (width >= 600px) {
+  .cards-portfolio .cards-portfolio-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-l);
+  }
+}
+
+/* Individual card */
+.cards-portfolio .cards-portfolio-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--background-color);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.cards-portfolio .cards-portfolio-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Card image */
+.cards-portfolio .cards-portfolio-card picture {
+  display: block;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+
+.cards-portfolio .cards-portfolio-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-fast);
+}
+
+.cards-portfolio .cards-portfolio-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Card content */
+.cards-portfolio .cards-portfolio-card-content {
+  padding: var(--spacing-m);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.cards-portfolio .cards-portfolio-card-title {
+  font-size: var(--body-font-size-s);
+  font-weight: 500;
+  color: var(--text-color);
+  margin: 0;
+  line-height: 1.3;
+}
+
+@media (width >= 768px) {
+  .cards-portfolio .cards-portfolio-card-title {
+    font-size: var(--body-font-size-m);
+  }
+}
+
+.cards-portfolio .cards-portfolio-card-link {
+  font-size: var(--body-font-size-xs);
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.cards-portfolio .cards-portfolio-card-link:hover {
+  text-decoration: underline;
+}
+
+/* Scope to homepage-portfolio section */
+.section.homepage-portfolio .cards-portfolio {
+  margin-top: var(--spacing-xl);
+}
