@@ -1,75 +1,131 @@
 /*
- * Copyright 2020 Adobe. All rights reserved.
- * This file is licensed to you under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License. You may obtain a copy
- * of the License at http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under
- * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
- * OF ANY KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
+ * Motorola Solutions Design System
+ * Migrated from https://www.motorolasolutions.com
  */
 
 :root {
-  /* colors */
-  --background-color: white;
-  --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
+  /* ===== COLORS ===== */
+  /* Primary Brand Colors */
+  --color-brand-primary: #005EB8;          /* Motorola Blue */
+  --color-brand-primary-dark: #004a93;     /* Darker blue for hover */
 
-  /* fonts */
+  /* Background Colors */
+  --background-color: #ffffff;
+  --background-color-light: #f5f5f5;
+  --background-color-dark: #343434;
+  --background-color-black: #191919;
+  --background-color-highlight: #f0f4f7;
+
+  /* Text Colors */
+  --text-color: rgba(0, 0, 0, 0.95);
+  --text-color-secondary: rgba(0, 0, 0, 0.6);
+  --text-color-inverse: rgba(255, 255, 255, 0.95);
+  --text-color-inverse-secondary: rgba(255, 255, 255, 0.6);
+
+  /* Link Colors */
+  --link-color: #005EB8;
+  --link-hover-color: #004a93;
+
+  /* Legacy compatibility */
+  --light-color: #f5f5f5;
+  --dark-color: #343434;
+
+  /* ===== FONTS ===== */
   --body-font-family: roboto, roboto-fallback, sans-serif;
-  --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
+  --heading-font-family: roboto, roboto-fallback, sans-serif;
 
-  /* body sizes */
-  --body-font-size-m: 22px;
-  --body-font-size-s: 19px;
-  --body-font-size-xs: 17px;
+  /* ===== TYPOGRAPHY - BODY ===== */
+  --body-font-size-xl: 20px;
+  --body-font-size-l: 18px;
+  --body-font-size-m: 16px;
+  --body-font-size-s: 14px;
+  --body-font-size-xs: 12px;
 
-  /* heading sizes */
-  --heading-font-size-xxl: 55px;
-  --heading-font-size-xl: 44px;
-  --heading-font-size-l: 34px;
-  --heading-font-size-m: 27px;
-  --heading-font-size-s: 24px;
-  --heading-font-size-xs: 22px;
+  --body-line-height: 1.625;  /* 26px / 16px */
 
-  /* nav height */
+  /* ===== TYPOGRAPHY - HEADINGS ===== */
+  --heading-font-size-xxl: 48px;
+  --heading-font-size-xl: 40px;
+  --heading-font-size-l: 32px;
+  --heading-font-size-m: 24px;
+  --heading-font-size-s: 20px;
+  --heading-font-size-xs: 16px;
+
+  --heading-line-height: 1.1;
+  --heading-font-weight: 400;
+  --heading-letter-spacing: normal;
+
+  /* ===== SPACING ===== */
+  --spacing-xxs: 4px;
+  --spacing-xs: 8px;
+  --spacing-s: 12px;
+  --spacing-m: 16px;
+  --spacing-l: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+  --spacing-xxxl: 64px;
+
+  /* ===== BUTTONS ===== */
+  --button-padding: 8px 16px;
+  --button-padding-large: 12px 24px;
+  --button-border-radius: 21px;
+  --button-border-radius-large: 48px;
+  --button-font-size: 12px;
+  --button-font-size-large: 14px;
+  --button-font-weight: 500;
+  --button-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  /* Button Primary */
+  --button-primary-bg: #cc0000;
+  --button-primary-color: #ffffff;
+  --button-primary-bg-hover: #990000;
+  --button-primary-border: 1px solid transparent;
+
+  /* Button Secondary */
+  --button-secondary-bg: transparent;
+  --button-secondary-color: rgba(0, 0, 0, 0.95);
+  --button-secondary-border: 1px solid rgba(0, 0, 0, 0.4);
+  --button-secondary-bg-hover: rgba(0, 0, 0, 0.05);
+
+  /* ===== LAYOUT ===== */
   --nav-height: 64px;
+  --content-max-width: 1200px;
+  --section-padding: 40px 0;
+
+  /* ===== TRANSITIONS ===== */
+  --transition-fast: 0.15s ease-in-out;
+  --transition-base: 0.2s ease-in-out;
+  --transition-slow: 0.3s ease-in-out;
+
+  /* ===== FOCUS ===== */
+  --focus-outline: 2px solid var(--color-brand-primary);
+  --focus-outline-offset: 2px;
 }
 
-/* fallback fonts */
-@font-face {
-  font-family: roboto-condensed-fallback;
-  size-adjust: 88.82%;
-  src: local('Arial');
+/* Responsive adjustments */
+@media (width >= 900px) {
+  :root {
+    --body-font-size-m: 16px;
+    --body-font-size-s: 14px;
+    --body-font-size-xs: 12px;
+
+    --heading-font-size-xxl: 48px;
+    --heading-font-size-xl: 40px;
+    --heading-font-size-l: 32px;
+    --heading-font-size-m: 24px;
+    --heading-font-size-s: 20px;
+    --heading-font-size-xs: 16px;
+  }
 }
 
+/* ===== FALLBACK FONTS ===== */
 @font-face {
   font-family: roboto-fallback;
   size-adjust: 99.529%;
   src: local('Arial');
 }
 
-@media (width >= 900px) {
-  :root {
-    /* body sizes */
-    --body-font-size-m: 18px;
-    --body-font-size-s: 16px;
-    --body-font-size-xs: 14px;
-
-    /* heading sizes */
-    --heading-font-size-xxl: 45px;
-    --heading-font-size-xl: 36px;
-    --heading-font-size-l: 28px;
-    --heading-font-size-m: 22px;
-    --heading-font-size-s: 20px;
-    --heading-font-size-xs: 18px;
-  }
-}
-
+/* ===== BASE STYLES ===== */
 body {
   display: none;
   margin: 0;
@@ -77,13 +133,16 @@ body {
   color: var(--text-color);
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-m);
-  line-height: 1.6;
+  line-height: var(--body-line-height);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body.appear {
   display: block;
 }
 
+/* ===== HEADER ===== */
 header {
   height: var(--nav-height);
 }
@@ -98,66 +157,74 @@ footer .footer[data-block-status="loaded"] {
   visibility: visible;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+/* ===== TYPOGRAPHY - HEADINGS ===== */
+h1, h2, h3, h4, h5, h6 {
   margin-top: 0.8em;
-  margin-bottom: 0.25em;
+  margin-bottom: var(--spacing-l);
   font-family: var(--heading-font-family);
-  font-weight: 600;
-  line-height: 1.25;
+  font-weight: var(--heading-font-weight);
+  line-height: var(--heading-line-height);
+  letter-spacing: var(--heading-letter-spacing);
   scroll-margin: 40px;
+  color: var(--text-color);
 }
 
-h1 { font-size: var(--heading-font-size-xxl); }
-h2 { font-size: var(--heading-font-size-xl); }
-h3 { font-size: var(--heading-font-size-l); }
-h4 { font-size: var(--heading-font-size-m); }
-h5 { font-size: var(--heading-font-size-s); }
-h6 { font-size: var(--heading-font-size-xs); }
+h1 {
+  font-size: var(--heading-font-size-xxl);
+  margin-bottom: var(--spacing-l);
+}
 
-p,
-dl,
-ol,
-ul,
-pre,
-blockquote {
+h2 {
+  font-size: var(--heading-font-size-xl);
+  margin-bottom: var(--spacing-l);
+}
+
+h3 {
+  font-size: var(--heading-font-size-l);
+  margin-bottom: var(--spacing-m);
+}
+
+h4 {
+  font-size: var(--heading-font-size-m);
+  margin-bottom: var(--spacing-s);
+}
+
+h5 {
+  font-size: var(--heading-font-size-s);
+  margin-bottom: var(--spacing-s);
+}
+
+h6 {
+  font-size: var(--heading-font-size-xs);
+  font-weight: 700;
+  margin-bottom: var(--spacing-xs);
+}
+
+/* ===== TYPOGRAPHY - BODY ===== */
+p, dl, ol, ul, pre, blockquote {
   margin-top: 0.8em;
   margin-bottom: 0.25em;
+  color: var(--text-color-secondary);
 }
 
-code,
-pre {
+code, pre {
   font-size: var(--body-font-size-s);
 }
 
 pre {
-  padding: 16px;
+  padding: var(--spacing-m);
   border-radius: 8px;
   background-color: var(--light-color);
   overflow-x: auto;
   white-space: pre;
 }
 
-main > div {
-  margin: 40px 16px;
-}
-
-input,
-textarea,
-select,
-button {
-  font: inherit;
-}
-
-/* links */
+/* ===== LINKS ===== */
 a:any-link {
   color: var(--link-color);
   text-decoration: none;
   overflow-wrap: break-word;
+  transition: color var(--transition-fast);
 }
 
 a:hover {
@@ -165,51 +232,93 @@ a:hover {
   text-decoration: underline;
 }
 
-/* buttons */
+a:focus {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-offset);
+}
+
+/* ===== BUTTONS ===== */
 a.button:any-link,
 button {
   box-sizing: border-box;
   display: inline-block;
   max-width: 100%;
-  margin: 12px 0;
-  border: 2px solid transparent;
-  border-radius: 2.4em;
-  padding: 0.5em 1.2em;
+  margin: var(--spacing-s) 0;
+  border: var(--button-primary-border);
+  border-radius: var(--button-border-radius);
+  padding: var(--button-padding);
   font-family: var(--body-font-family);
+  font-size: var(--button-font-size);
   font-style: normal;
-  font-weight: 500;
-  line-height: 1.25;
+  font-weight: var(--button-font-weight);
+  line-height: 1.5;
   text-align: center;
   text-decoration: none;
-  background-color: var(--link-color);
-  color: var(--background-color);
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-color);
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  transition: var(--button-transition);
 }
 
 a.button:hover,
 a.button:focus,
 button:hover,
 button:focus {
-  background-color: var(--link-hover-color);
+  background-color: var(--button-primary-bg-hover);
   cursor: pointer;
+}
+
+a.button:focus,
+button:focus {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-offset);
 }
 
 button:disabled,
 button:disabled:hover {
   background-color: var(--light-color);
-  cursor: unset;
+  color: var(--text-color-secondary);
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
+/* Button Secondary */
 a.button.secondary,
 button.secondary {
-  background-color: unset;
-  border: 2px solid currentcolor;
-  color: var(--text-color);
+  background-color: var(--button-secondary-bg);
+  border: var(--button-secondary-border);
+  border-radius: var(--button-border-radius-large);
+  color: var(--button-secondary-color);
 }
 
+a.button.secondary:hover,
+button.secondary:hover {
+  background-color: var(--button-secondary-bg-hover);
+}
+
+/* Button on dark backgrounds */
+.section.dark a.button:any-link,
+.section.dark button {
+  background-color: #cc0000;
+  color: #ffffff;
+}
+
+.section.dark a.button:hover,
+.section.dark button:hover {
+  background-color: #990000;
+}
+
+.section.dark a.button.secondary,
+.section.dark button.secondary {
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.4);
+  color: var(--text-color-inverse);
+}
+
+/* ===== IMAGES ===== */
 main img {
   max-width: 100%;
   width: auto;
@@ -227,15 +336,24 @@ main img {
   width: 100%;
 }
 
-/* sections */
+/* ===== LAYOUT ===== */
+main > div {
+  margin: 40px 16px;
+}
+
+input, textarea, select, button {
+  font: inherit;
+}
+
+/* ===== SECTIONS ===== */
 main > .section {
   margin: 40px 0;
 }
 
 main > .section > div {
-  max-width: 1200px;
+  max-width: var(--content-max-width);
   margin: auto;
-  padding: 0 24px;
+  padding: 0 var(--spacing-l);
 }
 
 main > .section:first-of-type {
@@ -244,14 +362,117 @@ main > .section:first-of-type {
 
 @media (width >= 900px) {
   main > .section > div {
-    padding: 0 32px;
+    padding: 0 var(--spacing-xl);
   }
 }
 
-/* section metadata */
+/* ===== SECTION VARIANTS ===== */
+
+/* Light/Highlight Section */
 main .section.light,
 main .section.highlight {
-  background-color: var(--light-color);
+  background-color: var(--background-color-highlight);
   margin: 0;
-  padding: 40px 0;
+  padding: var(--section-padding);
+}
+
+main .section.highlight h1,
+main .section.highlight h2,
+main .section.highlight h3,
+main .section.highlight h4,
+main .section.highlight h5,
+main .section.highlight h6 {
+  color: var(--text-color);
+}
+
+/* Dark Section */
+main .section.dark {
+  background-color: var(--background-color-dark);
+  margin: 0;
+  padding: var(--section-padding);
+}
+
+main .section.dark h1,
+main .section.dark h2,
+main .section.dark h3,
+main .section.dark h4,
+main .section.dark h5,
+main .section.dark h6 {
+  color: var(--text-color-inverse);
+}
+
+main .section.dark p,
+main .section.dark li {
+  color: var(--text-color-inverse-secondary);
+}
+
+main .section.dark a:any-link {
+  color: var(--text-color-inverse);
+}
+
+main .section.dark a:hover {
+  color: var(--background-color);
+}
+
+/* Black Section (darker than dark) */
+main .section.black {
+  background-color: var(--background-color-black);
+  margin: 0;
+  padding: var(--section-padding);
+}
+
+main .section.black h1,
+main .section.black h2,
+main .section.black h3,
+main .section.black h4,
+main .section.black h5,
+main .section.black h6 {
+  color: var(--text-color-inverse);
+}
+
+main .section.black p,
+main .section.black li {
+  color: var(--text-color-inverse-secondary);
+}
+
+/* ===== UTILITY CLASSES ===== */
+
+/* Text alignment */
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* Font sizes */
+.text-small {
+  font-size: var(--body-font-size-s);
+}
+
+.text-large {
+  font-size: var(--body-font-size-l);
+}
+
+/* Font weights */
+.font-bold {
+  font-weight: 700;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+/* Colors */
+.text-primary {
+  color: var(--color-brand-primary);
+}
+
+.text-secondary {
+  color: var(--text-color-secondary);
 }

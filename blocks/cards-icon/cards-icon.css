@@ -1,34 +1,139 @@
+/**
+ * Cards Icon Block - Motorola Solutions Style
+ * Icon navigation grid for footer/explore links
+ */
+
+.cards-icon {
+  padding: var(--spacing-xl) 0;
+}
+
+/* Section Header */
+.cards-icon h2 {
+  font-size: var(--heading-font-size-m);
+  font-weight: var(--heading-font-weight);
+  color: var(--text-color);
+  margin-bottom: var(--spacing-l);
+  text-align: center;
+}
+
+/* Icon Cards Grid */
 .cards-icon > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  grid-gap: 24px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-m);
   text-align: center;
-}
-
-.cards-icon > ul > li {
-  background-color: var(--background-color);
-  padding: 16px;
-}
-
-.cards-icon .cards-icon-card-body {
-  margin-top: 12px;
-}
-
-.cards-icon .cards-icon-card-image {
-  line-height: 0;
-}
-
-.cards-icon > ul > li img {
-  width: 64px;
-  height: 64px;
-  object-fit: contain;
 }
 
 @media (width >= 600px) {
   .cards-icon > ul {
     grid-template-columns: repeat(5, 1fr);
+    gap: var(--spacing-l);
   }
+}
+
+/* Individual Icon Card */
+.cards-icon > ul > li {
+  background-color: transparent;
+  padding: var(--spacing-m);
+  border-radius: 8px;
+  transition: background-color var(--transition-fast);
+}
+
+.cards-icon > ul > li:hover {
+  background-color: var(--light-color);
+}
+
+/* Icon Container */
+.cards-icon .cards-icon-card-image {
+  line-height: 0;
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-s);
+}
+
+.cards-icon > ul > li img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+@media (width >= 768px) {
+  .cards-icon > ul > li img {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+/* Card Text */
+.cards-icon .cards-icon-card-body {
+  margin-top: var(--spacing-xs);
+}
+
+.cards-icon .cards-icon-card-body a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-size: var(--body-font-size-s);
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.cards-icon .cards-icon-card-body a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+.cards-icon .cards-icon-card-body p {
+  margin: 0;
+  font-size: var(--body-font-size-s);
+  color: var(--text-color-secondary);
+}
+
+/* Dark Section Variant */
+.section.dark .cards-icon h2 {
+  color: var(--text-color-inverse);
+}
+
+.section.dark .cards-icon > ul > li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.section.dark .cards-icon .cards-icon-card-body a {
+  color: var(--text-color-inverse);
+}
+
+.section.dark .cards-icon .cards-icon-card-body a:hover {
+  color: var(--background-color);
+}
+
+.section.dark .cards-icon .cards-icon-card-body p {
+  color: var(--text-color-inverse-secondary);
+}
+
+/* Link List Style (Alternative) */
+.cards-icon.link-style > ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-m) var(--spacing-xl);
+}
+
+.cards-icon.link-style > ul > li {
+  padding: var(--spacing-xs) var(--spacing-m);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: var(--button-border-radius-large);
+}
+
+.cards-icon.link-style .cards-icon-card-image {
+  display: none;
+}
+
+.cards-icon.link-style .cards-icon-card-body {
+  margin: 0;
+}
+
+.cards-icon.link-style .cards-icon-card-body a {
+  font-size: var(--body-font-size-m);
 }

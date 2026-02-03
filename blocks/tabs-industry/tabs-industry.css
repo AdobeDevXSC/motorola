@@ -1,14 +1,43 @@
+/**
+ * Tabs Industry Block - Motorola Solutions Style
+ * Horizontal tabs for industry selection with pill-style buttons
+ */
+
+.tabs-industry {
+  padding: var(--spacing-xxl) 0;
+  text-align: center;
+}
+
+/* Tab Title */
+.tabs-industry h2 {
+  font-size: var(--heading-font-size-l);
+  font-weight: var(--heading-font-weight);
+  color: var(--text-color);
+  margin-bottom: var(--spacing-xl);
+}
+
+/* Tab List Container */
 .tabs-industry .tabs-industry-list {
   display: flex;
-  gap: 0.5ch;
+  justify-content: center;
+  gap: var(--spacing-xs);
   max-width: 100%;
   font-size: var(--body-font-size-xs);
   overflow-x: auto;
+  padding: var(--spacing-xs) 0;
+  margin-bottom: var(--spacing-l);
+  -webkit-overflow-scrolling: touch;
+}
+
+.tabs-industry .tabs-industry-list::-webkit-scrollbar {
+  display: none;
 }
 
 @media (width >= 600px) {
   .tabs-industry .tabs-industry-list {
     font-size: var(--body-font-size-s);
+    flex-wrap: wrap;
+    gap: var(--spacing-s);
   }
 }
 
@@ -18,41 +47,119 @@
   }
 }
 
+/* Tab Buttons - Pill Style */
 .tabs-industry .tabs-industry-list button {
   flex: 0 0 max-content;
   margin: 0;
-  border: 1px solid #dadada;
-  border-radius: 0;
-  padding: 0.5em;
-  background-color: var(--light-color);
-  color: initial;
-  font-weight: bold;
-  line-height: unset;
-  text-align: initial;
-  text-overflow: unset;
-  overflow: unset;
-  white-space: unset;
-  transition: background-color 0.2s;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: var(--button-border-radius-large);
+  padding: var(--spacing-xs) var(--spacing-m);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: inherit;
+  line-height: 1.4;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--button-transition);
 }
 
 .tabs-industry .tabs-industry-list button p {
   margin: 0;
+  color: inherit;
 }
 
+.tabs-industry .tabs-industry-list button:hover {
+  background-color: var(--light-color);
+  border-color: rgba(0, 0, 0, 0.3);
+}
 
+/* Selected Tab - Dark Background */
 .tabs-industry .tabs-industry-list button[aria-selected='true'] {
-  border-bottom: 1px solid var(--background-color);
-  background-color: var(--background-color);
-  cursor: initial;
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-color);
+  border-color: transparent;
+  cursor: default;
 }
 
+.tabs-industry .tabs-industry-list button[aria-selected='true'] p {
+  color: inherit;
+}
+
+/* Tab Panel Content */
 .tabs-industry .tabs-industry-panel {
-  margin-top: -1px;
-  padding: 24px;
-  border: 1px solid #dadada;
-  overflow: auto;
+  margin-top: var(--spacing-l);
+  padding: var(--spacing-xl);
+  background-color: var(--background-color);
+  border: none;
+  text-align: left;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .tabs-industry .tabs-industry-panel[aria-hidden='true'] {
   display: none;
+}
+
+/* Panel Content Typography */
+.tabs-industry .tabs-industry-panel strong,
+.tabs-industry .tabs-industry-panel b {
+  display: block;
+  font-size: var(--heading-font-size-s);
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: var(--spacing-s);
+}
+
+.tabs-industry .tabs-industry-panel p {
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-line-height);
+  color: var(--text-color-secondary);
+  margin-bottom: var(--spacing-m);
+}
+
+/* Panel Links */
+.tabs-industry .tabs-industry-panel a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.tabs-industry .tabs-industry-panel a:hover {
+  text-decoration: underline;
+}
+
+/* Explore All Link */
+.tabs-industry > p:last-child {
+  margin-top: var(--spacing-xl);
+  text-align: center;
+}
+
+.tabs-industry > p:last-child a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--link-color);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.tabs-industry > p:last-child a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Adjustments */
+@media (width >= 768px) {
+  .tabs-industry {
+    padding: var(--spacing-xxxl) 0;
+  }
+
+  .tabs-industry h2 {
+    font-size: var(--heading-font-size-xl);
+  }
+
+  .tabs-industry .tabs-industry-panel {
+    padding: var(--spacing-xxl);
+  }
 }
