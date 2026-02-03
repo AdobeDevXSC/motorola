@@ -110,6 +110,7 @@ main > div:has(.carousel-hero) {
   max-width: 500px;
   margin: var(--spacing-l);
   margin-left: 80px;
+  margin-right: 80px;
   padding: var(--spacing-m);
   color: var(--text-color-inverse);
   background-color: transparent;
@@ -119,7 +120,8 @@ main > div:has(.carousel-hero) {
   .carousel-hero .carousel-hero-slide .carousel-hero-slide-content {
     margin: var(--spacing-xl) var(--spacing-xxl);
     margin-left: 120px;
-    max-width: 45%;
+    margin-right: 120px;
+    max-width: 55%;
     padding: var(--spacing-l);
   }
 }
@@ -128,7 +130,8 @@ main > div:has(.carousel-hero) {
   .carousel-hero .carousel-hero-slide .carousel-hero-slide-content {
     margin: var(--spacing-xxl) var(--spacing-xxxl);
     margin-left: 140px;
-    max-width: 40%;
+    margin-right: 140px;
+    max-width: 60%;
   }
 }
 
@@ -194,33 +197,41 @@ main > div:has(.carousel-hero) {
   text-decoration: none;
 }
 
-/* Slide Indicators */
+/* Slide Indicators - Positioned on top of carousel at bottom */
 .carousel-hero .carousel-hero-slide-indicators {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--spacing-xs) var(--spacing-s);
-  padding: var(--spacing-m);
-  background-color: var(--background-color);
+  padding: 0;
+  background-color: transparent;
   line-height: 0;
 }
 
 .carousel-hero .carousel-hero-slide-indicator button {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   margin: 0;
   padding: 0;
   border: none;
   border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.5);
   transition: background-color var(--transition-fast);
   cursor: pointer;
 }
 
-.carousel-hero .carousel-hero-slide-indicator button:disabled,
 .carousel-hero .carousel-hero-slide-indicator button:hover,
 .carousel-hero .carousel-hero-slide-indicator button:focus-visible {
-  background-color: var(--text-color);
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.carousel-hero .carousel-hero-slide-indicator button:disabled {
+  background-color: #00a3e0;
 }
 
 /* Navigation Buttons */
