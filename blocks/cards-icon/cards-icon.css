@@ -1,0 +1,34 @@
+.cards-icon > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-gap: 24px;
+  text-align: center;
+}
+
+.cards-icon > ul > li {
+  background-color: var(--background-color);
+  padding: 16px;
+}
+
+.cards-icon .cards-icon-card-body {
+  margin-top: 12px;
+}
+
+.cards-icon .cards-icon-card-image {
+  line-height: 0;
+}
+
+.cards-icon > ul > li img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+@media (width >= 600px) {
+  .cards-icon > ul {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}

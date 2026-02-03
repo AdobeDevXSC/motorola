@@ -1,0 +1,40 @@
+{
+  "variantName": "cards-product",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-02-03T17:45:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.motorolasolutions.com/en_us.html",
+    "originPage": "Motorola Solutions Homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "normal",
+    "purpose": "product-cards",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image + title + description + CTA link",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "product listings",
+      "feature showcases",
+      "service offerings",
+      "solution cards"
+    ],
+    "notSuitableFor": [
+      "icon-only displays",
+      "text-only cards",
+      "testimonials"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/content/en-us"],
+    "reuseCount": 1,
+    "lastUsed": "2026-02-03T17:45:00.000Z"
+  }
+}

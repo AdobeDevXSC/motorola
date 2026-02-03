@@ -1,0 +1,67 @@
+{
+  "templates": [
+    {
+      "name": "Motorola Solutions Homepage",
+      "urls": ["https://www.motorolasolutions.com/en_us.html"],
+      "description": "Main homepage with hero carousel, industry tabs, product portfolio, and news sections",
+      "blocks": [
+        {
+          "name": "carousel-hero",
+          "instances": [
+            ".herocarousel-v1",
+            ".slick-slider",
+            "[class*='hero-carousel']",
+            ".home-hero-section"
+          ],
+          "section": "dark"
+        },
+        {
+          "name": "tabs-industry",
+          "instances": [
+            ".dna-tabs",
+            "[class*='industry-tabs']",
+            ".customize-experience",
+            ".tab-section"
+          ],
+          "section": "highlight"
+        },
+        {
+          "name": "columns-portfolio",
+          "instances": [
+            ".portfolio-section",
+            ".two-column-layout",
+            "[class*='product-showcase']",
+            ".accordion-portfolio"
+          ]
+        },
+        {
+          "name": "columns-logos",
+          "instances": [
+            ".logo-row",
+            ".partner-logos",
+            "[class*='certification']",
+            ".trust-badges"
+          ]
+        },
+        {
+          "name": "cards-product",
+          "instances": [
+            ".product-cards",
+            ".card-grid",
+            "[class*='feature-cards']",
+            ".solutions-cards"
+          ]
+        },
+        {
+          "name": "cards-icon",
+          "instances": [
+            ".icon-links",
+            ".explore-links",
+            "[class*='quick-links']",
+            ".footer-links-grid"
+          ]
+        }
+      ]
+    }
+  ]
+}

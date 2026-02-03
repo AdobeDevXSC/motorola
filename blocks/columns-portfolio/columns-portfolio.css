@@ -1,0 +1,33 @@
+.columns-portfolio > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.columns-portfolio img {
+  width: 100%;
+}
+
+.columns-portfolio > div > div {
+  order: 1;
+}
+
+.columns-portfolio > div > .columns-portfolio-img-col {
+  order: 0;
+}
+
+.columns-portfolio > div > .columns-portfolio-img-col img {
+  display: block;
+}
+
+@media (width >= 900px) {
+  .columns-portfolio > div {
+    align-items: center;
+    flex-direction: unset;
+    gap: 24px;
+  }
+
+  .columns-portfolio > div > div {
+    flex: 1;
+    order: unset;
+  }
+}
