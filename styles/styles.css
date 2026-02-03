@@ -244,31 +244,36 @@ button {
   display: inline-block;
   max-width: 100%;
   margin: var(--spacing-s) 0;
-  border: var(--button-primary-border);
-  border-radius: var(--button-border-radius);
-  padding: var(--button-padding);
-  font-family: var(--body-font-family);
-  font-size: var(--button-font-size);
+  padding: 8px 20px;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
   font-style: normal;
-  font-weight: var(--button-font-weight);
-  line-height: 1.5;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.25px;
+  text-transform: none;
   text-align: center;
   text-decoration: none;
-  background-color: var(--button-primary-bg);
-  color: var(--button-primary-color);
+  color: rgba(0, 0, 0, 0.95);
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 3rem;
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  transition: var(--button-transition);
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 a.button:hover,
 a.button:focus,
 button:hover,
 button:focus {
-  background-color: var(--button-primary-bg-hover);
+  color: hsla(0, 0%, 100%, 0.95);
+  background: rgba(0, 0, 0, 0.95);
+  border-color: rgba(0, 0, 0, 0.95);
   cursor: pointer;
+  text-decoration: none;
 }
 
 a.button:focus,
@@ -396,7 +401,7 @@ main > .section:first-of-type {
 /* Light/Highlight Section */
 main .section.light,
 main .section.highlight {
-  background-color: var(--background-color-highlight);
+  background-color: rgb(250, 250, 248);
   margin: 0;
   padding: var(--section-padding);
 }
