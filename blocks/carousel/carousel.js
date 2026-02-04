@@ -264,7 +264,8 @@ function setupWideCarouselInfiniteLoop(block, slidesWrapper) {
   slidesWrapper.appendChild(firstSlideClone);
 
   // Set initial scroll position to show first real slide (after clone)
-  requestAnimationFrame(() => {
+  // Use setTimeout to ensure layout is complete after cloning
+  setTimeout(() => {
     const firstRealSlide = slidesWrapper.querySelector('.carousel-slide:not(.clone)');
     if (firstRealSlide) {
       const slideCenter = firstRealSlide.offsetLeft + (firstRealSlide.offsetWidth / 2);
@@ -278,7 +279,7 @@ function setupWideCarouselInfiniteLoop(block, slidesWrapper) {
         slide.classList.add('active');
       }
     });
-  });
+  }, 100);
 
   // Handle scroll snap to clones - jump to real slide
   let scrollEndTimeout = null;
@@ -942,41 +943,7 @@ export default async function decorate(block) {
 
   // Set first indicator as active on load
   if (!isSingleSlide) {
-    // For wide variant, clone first and last slides for visual continuity
-    if (isWideVariant) {
-      const slides = slidesWrapper.querySelectorAll('.carousel-slide');
-      const firstSlide = slides[0];
-      const lastSlide = slides[slides.length - 1];
-
-      const cloneLast = lastSlide.cloneNode(true);
-      cloneLast.removeAttribute('id');
-      cloneLast.setAttribute('aria-hidden', 'true');
-      cloneLast.classList.add('clone');
-      slidesWrapper.prepend(cloneLast);
-
-      const cloneFirst = firstSlide.cloneNode(true);
-      cloneFirst.removeAttribute('id');
-      cloneFirst.setAttribute('aria-hidden', 'true');
-      cloneFirst.classList.add('clone');
-      slidesWrapper.append(cloneFirst);
-
-      // Start at index 1 (real first slide)
-      block.dataset.activeSlide = 1;
-
-      // Update indicators to match the offset
-      // Note: indicators are 0-based for the real slides.
-      // We need to map indicator i -> slide i+1
-      // This requires updating the event listeners, which is complex.
-      // For now, we just set the initial active slide.
-      // The existing logic uses block.dataset.activeSlide.
-      // If we change the DOM, the indices shift.
-      // We need to re-bind events or adjust the logic.
-      // Given the complexity, we will skip the cloning for now to avoid breaking navigation.
-      // instead, we rely on the centering CSS.
-      block.dataset.activeSlide = 0;
-    } else {
-      block.dataset.activeSlide = 0;
-    }
+    block.dataset.activeSlide = 0;
 
     const firstIndicator = block.querySelector('.carousel-slide-indicator button');
     if (firstIndicator) {

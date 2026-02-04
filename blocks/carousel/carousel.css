@@ -533,10 +533,10 @@ main div.carousel-wrapper:has(.carousel.wide) {
   scroll-behavior: smooth;
 
   /* Calculate padding to center items: (100vw - item width) / 2 */
-  padding-left: calc((100vw - 560px) / 2);
-  padding-right: calc((100vw - 560px) / 2);
-  scroll-padding-left: calc((100vw - 560px) / 2);
-  scroll-padding-right: calc((100vw - 560px) / 2);
+  padding-left: calc((100vw - 920px) / 2);
+  padding-right: calc((100vw - 920px) / 2);
+  scroll-padding-left: calc((100vw - 920px) / 2);
+  scroll-padding-right: calc((100vw - 920px) / 2);
 }
 
 /* Mobile: smaller centered item */
@@ -562,9 +562,9 @@ main div.carousel-wrapper:has(.carousel.wide) {
 
 /* Wide Slide - Larger cards with square aspect ratio */
 .carousel.wide .carousel-slide {
-  flex: 0 0 560px;
+  flex: 0 0 920px;
   min-width: 280px;
-  max-width: 560px;
+  max-width: 920px;
   height: auto;
   position: relative;
   background: transparent;
