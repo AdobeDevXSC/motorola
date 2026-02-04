@@ -5,22 +5,23 @@
 
 :root {
   /* ===== COLORS ===== */
+
   /* Primary Brand Colors */
   --color-brand-primary: #005EB8;          /* Motorola Blue */
   --color-brand-primary-dark: #004a93;     /* Darker blue for hover */
 
   /* Background Colors */
-  --background-color: #ffffff;
+  --background-color: #fff;
   --background-color-light: #f5f5f5;
   --background-color-dark: #343434;
   --background-color-black: #191919;
   --background-color-highlight: #f0f4f7;
 
   /* Text Colors */
-  --text-color: rgba(0, 0, 0, 0.95);
-  --text-color-secondary: rgba(0, 0, 0, 0.6);
-  --text-color-inverse: rgba(255, 255, 255, 0.95);
-  --text-color-inverse-secondary: rgba(255, 255, 255, 0.6);
+  --text-color: rgb(0 0 0 / 95%);
+  --text-color-secondary: rgb(0 0 0 / 60%);
+  --text-color-inverse: rgb(255 255 255 / 95%);
+  --text-color-inverse-secondary: rgb(255 255 255 / 60%);
 
   /* Link Colors */
   --link-color: #005EB8;
@@ -40,7 +41,6 @@
   --body-font-size-m: 16px;
   --body-font-size-s: 14px;
   --body-font-size-xs: 12px;
-
   --body-line-height: 1.625;  /* 26px / 16px */
 
   /* ===== TYPOGRAPHY - HEADINGS ===== */
@@ -50,7 +50,6 @@
   --heading-font-size-m: 24px;
   --heading-font-size-s: 20px;
   --heading-font-size-xs: 16px;
-
   --heading-line-height: 1.1;
   --heading-font-weight: 400;
   --heading-letter-spacing: normal;
@@ -76,16 +75,16 @@
   --button-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
   /* Button Primary - Matching Motorola Solutions */
-  --button-primary-bg: rgba(0, 0, 0, 0.95);
-  --button-primary-color: rgba(255, 255, 255, 0.95);
-  --button-primary-bg-hover: #000000;
+  --button-primary-bg: rgb(0 0 0 / 95%);
+  --button-primary-color: rgb(255 255 255 / 95%);
+  --button-primary-bg-hover: #000;
   --button-primary-border: 1px solid transparent;
 
   /* Button Secondary */
   --button-secondary-bg: transparent;
-  --button-secondary-color: rgba(0, 0, 0, 0.95);
-  --button-secondary-border: 1px solid rgba(0, 0, 0, 0.4);
-  --button-secondary-bg-hover: rgba(0, 0, 0, 0.05);
+  --button-secondary-color: rgb(0 0 0 / 95%);
+  --button-secondary-border: 1px solid rgb(0 0 0 / 40%);
+  --button-secondary-bg-hover: rgb(0 0 0 / 5%);
 
   /* ===== LAYOUT ===== */
   --nav-height: 64px;
@@ -108,7 +107,6 @@
     --body-font-size-m: 16px;
     --body-font-size-s: 14px;
     --body-font-size-xs: 12px;
-
     --heading-font-size-xxl: 48px;
     --heading-font-size-xl: 40px;
     --heading-font-size-l: 32px;
@@ -237,6 +235,11 @@ a:focus {
   outline-offset: var(--focus-outline-offset);
 }
 
+/* ===== FORM ELEMENTS ===== */
+input, textarea, select, button {
+  font: inherit;
+}
+
 /* ===== BUTTONS ===== */
 a.button:any-link,
 button {
@@ -254,9 +257,9 @@ button {
   text-transform: none;
   text-align: center;
   text-decoration: none;
-  color: rgba(0, 0, 0, 0.95);
+  color: rgb(0 0 0 / 95%);
   background: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.4);
+  border: 1px solid rgb(0 0 0 / 40%);
   border-radius: 3rem;
   cursor: pointer;
   overflow: hidden;
@@ -269,9 +272,9 @@ a.button:hover,
 a.button:focus,
 button:hover,
 button:focus {
-  color: hsla(0, 0%, 100%, 0.95);
-  background: rgba(0, 0, 0, 0.95);
-  border-color: rgba(0, 0, 0, 0.95);
+  color: hsl(0deg 0% 100% / 95%);
+  background: rgb(0 0 0 / 95%);
+  border-color: rgb(0 0 0 / 95%);
   cursor: pointer;
   text-decoration: none;
 }
@@ -319,7 +322,7 @@ button.secondary:hover {
 .section.dark a.button.secondary,
 .section.dark button.secondary {
   background-color: transparent;
-  border-color: rgba(255, 255, 255, 0.4);
+  border-color: rgb(255 255 255 / 40%);
   color: var(--text-color-inverse);
 }
 
@@ -329,9 +332,9 @@ button.inverted,
 .button-inverted {
   display: inline-block;
   padding: 12px 28px;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgb(255 255 255 / 95%);
   color: #1a1a1a;
-  border: 2px solid rgba(255, 255, 255, 0.95);
+  border: 2px solid rgb(255 255 255 / 95%);
   border-radius: var(--button-border-radius);
   font-size: var(--body-font-size-s);
   font-weight: 600;
@@ -342,8 +345,8 @@ button.inverted,
 a.button.inverted:hover,
 button.inverted:hover,
 .button-inverted:hover {
-  background-color: hsla(0, 0%, 74.1%, 0.9625);
-  border-color: hsla(0, 0%, 74.1%, 0.9625);
+  background-color: hsl(0deg 0% 74.1% / 96.3%);
+  border-color: hsl(0deg 0% 74.1% / 96.3%);
   color: #000;
   text-decoration: none;
 }
@@ -369,10 +372,6 @@ main img {
 /* ===== LAYOUT ===== */
 main > div {
   margin: 40px 16px;
-}
-
-input, textarea, select, button {
-  font: inherit;
 }
 
 /* ===== SECTIONS ===== */
@@ -401,7 +400,7 @@ main > .section:first-of-type {
 /* Light/Highlight Section */
 main .section.light,
 main .section.highlight {
-  background-color: rgb(250, 250, 248);
+  background-color: rgb(250 250 248);
   margin: 0;
   padding: var(--section-padding);
 }
@@ -417,7 +416,7 @@ main .section.highlight h6 {
 
 main .section.highlight p,
 main .section.highlight li {
-  color: rgba(0, 0, 0, 0.95);
+  color: rgb(0 0 0 / 95%);
 }
 
 main .section.highlight a:any-link {
@@ -474,23 +473,93 @@ main .section.black li {
   color: var(--text-color-inverse-secondary);
 }
 
-/* ===== TEMPLATE: HOMEPAGE ===== */
-/* Center default content (non-block content) on homepage */
-body.homepage main .default-content-wrapper {
+/* ===== SECTION: IMAGE FULL WIDTH ===== */
+
+/* Used for sections where the image should span the full viewport width */
+main .section.image-full-width {
+  margin: 0;
+  padding: var(--spacing-xxl) 0;
+}
+
+main .section.image-full-width .default-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-xxl) var(--spacing-l);
+}
+
+@media (width >= 900px) {
+  main .section.image-full-width .default-content-wrapper {
+    padding: var(--spacing-xxl) var(--spacing-xl);
+  }
+}
+
+/* Text content - centered by default */
+main .section.image-full-width .default-content-wrapper h2 {
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0 0 var(--spacing-m);
   text-align: center;
 }
 
-body.homepage main .default-content-wrapper p,
-body.homepage main .default-content-wrapper h1,
-body.homepage main .default-content-wrapper h2,
-body.homepage main .default-content-wrapper h3,
-body.homepage main .default-content-wrapper h4,
-body.homepage main .default-content-wrapper h5,
-body.homepage main .default-content-wrapper h6 {
+@media (width >= 768px) {
+  main .section.image-full-width .default-content-wrapper h2 {
+    font-size: 40px;
+  }
+}
+
+main .section.image-full-width .default-content-wrapper p {
+  margin: 0;
   text-align: center;
 }
 
-body.homepage main .default-content-wrapper img {
+/* Image - spans full viewport width, breaks out of centered container */
+main .section.image-full-width .default-content-wrapper p:has(picture) {
+  align-self: stretch;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  max-width: unset;
+}
+
+/* Ensure the picture element fills the paragraph container */
+main .section.image-full-width .default-content-wrapper picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Ensure the image fills the picture element */
+main .section.image-full-width .default-content-wrapper picture img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: unset;   /* IMPORTANT: Overrides global limits */
+  object-fit: cover;  /* Ensures image covers the full width */
+}
+
+/* ===== TEMPLATE: TEMPLATE-HOME ===== */
+
+/* Center default content (non-block content) on template-home pages */
+
+/* Exception: sections containing carousel.stories keep left-aligned text for intro panel */
+body.template-home main > .section:not(:has(.carousel.stories)) .default-content-wrapper {
+  text-align: center;
+}
+
+body.template-home main > .section:not(:has(.carousel.stories)) .default-content-wrapper p,
+body.template-home main > .section:not(:has(.carousel.stories)) .default-content-wrapper h1,
+body.template-home main > .section:not(:has(.carousel.stories)) .default-content-wrapper h2,
+body.template-home main > .section:not(:has(.carousel.stories)) .default-content-wrapper h3,
+body.template-home main > .section:not(:has(.carousel.stories)) .default-content-wrapper h4,
+body.template-home main > .section:not(:has(.carousel.stories)) .default-content-wrapper h5,
+body.template-home main > .section:not(:has(.carousel.stories)) .default-content-wrapper h6 {
+  text-align: center;
+}
+
+body.template-home main > .section:not(:has(.carousel.stories)) .default-content-wrapper img {
   margin-left: auto;
   margin-right: auto;
 }
@@ -535,77 +604,4 @@ body.homepage main .default-content-wrapper img {
 
 .text-secondary {
   color: var(--text-color-secondary);
-}
-
-/* ===== SECTION: IMAGE FULL WIDTH ===== */
-/* Used for sections where the image should span the full viewport width */
-main .section.image-full-width {
-  margin: 0;
-  padding: var(--spacing-xxl) 0;
-}
-
-main .section.image-full-width .default-content-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: var(--content-max-width);
-  margin: 0 auto;
-  padding: var(--spacing-xxl) var(--spacing-l);
-}
-
-@media (width >= 900px) {
-  main .section.image-full-width .default-content-wrapper {
-    padding: var(--spacing-xxl) var(--spacing-xl);
-  }
-}
-
-/* Text content - centered by default */
-main .section.image-full-width .default-content-wrapper h2 {
-  font-size: 32px;
-  font-weight: 400;
-  line-height: 1.2;
-  margin: 0 0 var(--spacing-m);
-  text-align: center;
-}
-
-@media (width >= 768px) {
-  main .section.image-full-width .default-content-wrapper h2 {
-    font-size: 40px;
-  }
-}
-
-main .section.image-full-width .default-content-wrapper p {
-  margin: 0 0 var(--spacing-m);
-  text-align: center;
-}
-
-/* Image - spans full viewport width */
-main .section.image-full-width .default-content-wrapper p:has(picture) {
-  align-self: flex-start;
-  width: 100vw;
-  margin-top: var(--spacing-l);
-  margin-left: calc(-1 * var(--spacing-l));
-  max-width: unset;
-}
-
-@media (width >= 900px) {
-  main .section.image-full-width .default-content-wrapper p:has(picture) {
-    margin-left: calc(-1 * var(--spacing-xl));
-  }
-}
-
-/* Ensure the picture element fills the paragraph container */
-main .section.image-full-width .default-content-wrapper picture {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-/* Ensure the image fills the picture element */
-main .section.image-full-width .default-content-wrapper picture img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-width: unset;   /* IMPORTANT: Overrides global limits */
-  object-fit: cover;  /* Ensures image covers the full width */
 }

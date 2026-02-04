@@ -31,6 +31,17 @@ Defined in `/styles/styles.css` - reference these variable names, don't hardcode
 1. **Never use `!important`** - increase selector specificity instead
 2. **Use CSS custom properties** - reference design tokens, override at block level when needed
 3. **Edge-to-edge blocks** - use `:has()` selector on wrapper: `main > div:has(.block-name)`
+4. **Specificity order in styles.css** - section-specific styles (like `image-full-width`) must come BEFORE template styles (like `template-home`) to maintain proper cascade
+5. **Visually hidden text** - use `clip-path: inset(50%)` instead of deprecated `clip: rect()`
+6. **Backdrop filter** - always include both `-webkit-backdrop-filter` and `backdrop-filter`
+
+---
+
+## Lint Rules
+
+- **no-descending-specificity**: For complex block CSS with variant overrides, add `/* stylelint-disable no-descending-specificity */` at the top of the file
+- **declaration-block-no-duplicate-properties**: Never duplicate CSS properties (except vendor prefixes like `-webkit-`)
+- **property-no-deprecated**: Use modern equivalents (`clip-path` not `clip`)
 
 ---
 
@@ -39,7 +50,22 @@ Defined in `/styles/styles.css` - reference these variable names, don't hardcode
 - **Link → Button**: Link alone in its own paragraph becomes a button
 - **Link stays link**: Link inline with other text stays a link
 - **Section metadata**: Use `section-metadata` block to apply styles like `highlight`, `dark`, `image-full-width`
-- **Page templates**: Add `Template: homepage` to page metadata for centered default content
+- **Page templates**: Add `Template: template-home` to page metadata for centered default content
+
+---
+
+## Template: template-home
+
+Centers default content (text, headings, buttons, images) on homepage.
+
+**Exception**: Sections containing `.carousel.stories` are NOT centered - they keep left-aligned text for the intro panel.
+
+CSS selector pattern:
+```css
+body.template-home main > .section:not(:has(.carousel.stories)) .default-content-wrapper {
+  text-align: center;
+}
+```
 
 ---
 
@@ -54,7 +80,10 @@ Defined in `/styles/styles.css` - reference these variable names, don't hardcode
 | Wide | `.carousel.wide` | Large centered cards (920px), 50% opacity on inactive, infinite loop |
 | Default | `.carousel` | Simple horizontal scrolling cards (330px) |
 
-**Wide variant features**: Centered active slide, edge-to-edge, cloned slides for seamless infinite scroll.
+**Wide variant specifics**:
+- No padding-top (`padding: 0 0 var(--spacing-xl)`)
+- Navigation below slides with double margin (`margin-bottom: calc(2 * var(--spacing-xl))`)
+- Centered active slide, edge-to-edge, cloned slides for seamless infinite scroll
 
 ### accordion + cards-portfolio
 
@@ -66,7 +95,19 @@ Icon cards using custom SVGs from `/icons/`. Dark background (#1a1a1a), cyan str
 
 ### image-full-width (Section Style)
 
-Centered text content with full viewport-width image below. Uses `width: 100vw` with `translateX(-50%)` trick.
+Centered text content with full viewport-width image below.
+
+**Key CSS pattern** for breaking out of centered container:
+```css
+main .section.image-full-width .default-content-wrapper p:has(picture) {
+  align-self: stretch;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  max-width: unset;
+}
+```
+
+This works at all viewport sizes by calculating the offset from the centered container.
 
 ---
 
@@ -100,3 +141,4 @@ Centered text content with full viewport-width image below. Uses `width: 100vw` 
 3. Check hover states - many elements have specific behaviors
 4. Follow existing patterns in the codebase
 5. Update this file when learning new project-specific patterns
+6. Run lint checks pass before considering work complete

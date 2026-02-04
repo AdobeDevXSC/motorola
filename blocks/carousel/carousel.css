@@ -1,3 +1,5 @@
+/* stylelint-disable no-descending-specificity */
+
 /**
  * Carousel Block - Unified CSS with variant support
  *
@@ -158,7 +160,7 @@ main div.carousel-wrapper:has(.carousel.wide) {
   flex-direction: column;
   background: #fff;
   border-radius: 0;
-  box-shadow: 0 10px 20px 0 rgba(35, 35, 35, 0.08);
+  box-shadow: 0 10px 20px 0 rgb(35 35 35 / 8%);
   overflow: hidden;
   min-width: 280px;
 }
@@ -341,7 +343,7 @@ main div.carousel-wrapper:has(.carousel.wide) {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
 }
@@ -409,7 +411,7 @@ main div.carousel-wrapper:has(.carousel.wide) {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
 }
@@ -523,32 +525,54 @@ main div.carousel-wrapper:has(.carousel.wide) {
 }
 
 /* ============================================= */
+
 /* ===== WIDE VARIANT STYLES ===== */
+
 /* ============================================= */
 
 .carousel.wide {
-  padding: var(--spacing-xl) 0;
+  padding: 0 0 var(--spacing-xl);
   overflow: hidden;
+}
+
+/* Wide variant navigation - margin below instead of above */
+.carousel.wide .carousel-navigation-wrapper {
+  margin-top: 0;
+  margin-bottom: calc(2 * var(--spacing-xl));
 }
 
 /* Wide slides container - edge to edge, centered scroll */
 .carousel.wide .carousel-slides {
-  gap: 30px;
-  padding: 30px calc(50vw - 300px);
-  scroll-padding-left: 0;
+  gap: 40px;
+  padding: 30px 0;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+
+  /* Calculate padding to center items: (100vw - item width) / 2 */
+  padding-left: calc((100vw - 920px) / 2);
+  padding-right: calc((100vw - 920px) / 2);
+  scroll-padding-left: calc((100vw - 920px) / 2);
+  scroll-padding-right: calc((100vw - 920px) / 2);
 }
 
 /* Mobile: smaller centered item */
 @media (width < 768px) {
   .carousel.wide .carousel-slides {
-    padding: 30px calc(50vw - 300px);
+    gap: 20px;
+    padding-left: calc((100vw - min(600px, 85vw)) / 2);
+    padding-right: calc((100vw - min(600px, 85vw)) / 2);
+    scroll-padding-left: calc((100vw - min(600px, 85vw)) / 2);
+    scroll-padding-right: calc((100vw - min(600px, 85vw)) / 2);
   }
 }
 
 /* Tablet: medium centered item */
 @media (width >= 768px) and (width < 1200px) {
   .carousel.wide .carousel-slides {
-    padding: 30px calc(50vw - 300px);
+    padding-left: calc((100vw - min(700px, 70vw)) / 2);
+    padding-right: calc((100vw - min(700px, 70vw)) / 2);
+    scroll-padding-left: calc((100vw - min(700px, 70vw)) / 2);
+    scroll-padding-right: calc((100vw - min(700px, 70vw)) / 2);
   }
 }
 
@@ -560,7 +584,7 @@ main div.carousel-wrapper:has(.carousel.wide) {
   height: auto;
   position: relative;
   background: transparent;
-  box-shadow: 0 10px 30px 0 rgba(35, 35, 35, 0.15);
+  box-shadow: 0 10px 30px 0 rgb(35 35 35 / 15%);
   border-radius: 0;
   overflow: hidden;
   scroll-snap-align: center;
@@ -623,9 +647,9 @@ main div.carousel-wrapper:has(.carousel.wide) {
 }
 
 .carousel.wide .carousel-slide-footer-wrapper {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgb(0 0 0 / 40%);
   backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
   padding: 16px 30px;
   display: flex;
   align-items: center;
@@ -638,9 +662,8 @@ main div.carousel-wrapper:has(.carousel.wide) {
   font-size: 19px;
   font-weight: 400;
   line-height: 27px;
-  color: rgba(255, 255, 255, 0.95);
-  margin: 0;
-  padding-left: 0;
+  color: rgb(255 255 255 / 95%);
+  margin: 0 0 16px;
 }
 
 /* Wide card button - white pill button */
@@ -655,7 +678,6 @@ main div.carousel-wrapper:has(.carousel.wide) {
   padding: 8px 20px;
   border: none;
   border-radius: 25px;
-  margin-left: 0;
   transition: background-color var(--transition-fast);
   white-space: nowrap;
   flex-shrink: 0;
@@ -677,7 +699,9 @@ main div.carousel-wrapper:has(.carousel.wide) {
 }
 
 /* ============================================= */
+
 /* ===== HERO VARIANT STYLES ===== */
+
 /* ============================================= */
 
 .carousel.hero {
@@ -759,9 +783,9 @@ main div.carousel-wrapper:has(.carousel.wide) {
   inset: 0;
   background: linear-gradient(
     to right,
-    rgba(0, 0, 0, 0.7) 0%,
-    rgba(0, 0, 0, 0.4) 50%,
-    rgba(0, 0, 0, 0.1) 100%
+    rgb(0 0 0 / 70%) 0%,
+    rgb(0 0 0 / 40%) 50%,
+    rgb(0 0 0 / 10%) 100%
   );
 }
 
@@ -842,9 +866,9 @@ main div.carousel-wrapper:has(.carousel.wide) {
 .carousel.hero .carousel-slide-content strong a {
   display: inline-block;
   padding: 12px 28px;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgb(255 255 255 / 95%);
   color: #1a1a1a;
-  border: 2px solid rgba(255, 255, 255, 0.95);
+  border: 2px solid rgb(255 255 255 / 95%);
   border-radius: var(--button-border-radius);
   font-size: var(--body-font-size-s);
   font-weight: 600;
@@ -854,8 +878,8 @@ main div.carousel-wrapper:has(.carousel.wide) {
 
 .carousel.hero .carousel-slide-content a.button:hover,
 .carousel.hero .carousel-slide-content strong a:hover {
-  background-color: hsla(0, 0%, 74.1%, 0.9625);
-  border-color: hsla(0, 0%, 74.1%, 0.9625);
+  background-color: hsl(0deg 0% 74.1% / 96.3%);
+  border-color: hsl(0deg 0% 74.1% / 96.3%);
   color: #000;
   text-decoration: none;
 }
@@ -883,14 +907,14 @@ main div.carousel-wrapper:has(.carousel.wide) {
   padding: 0;
   border: none;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgb(255 255 255 / 50%);
   transition: background-color var(--transition-fast);
   cursor: pointer;
 }
 
 .carousel.hero .carousel-slide-indicator button:hover,
 .carousel.hero .carousel-slide-indicator button:focus-visible {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgb(255 255 255 / 80%);
 }
 
 .carousel.hero .carousel-slide-indicator button:disabled {
@@ -936,7 +960,7 @@ main div.carousel-wrapper:has(.carousel.wide) {
 .carousel.hero .carousel-navigation-buttons button::after {
   display: block;
   content: '';
-  border: 2px solid rgba(255, 255, 255, 0.85);
+  border: 2px solid rgb(255 255 255 / 85%);
   border-bottom: 0;
   border-left: 0;
   height: 24px;
