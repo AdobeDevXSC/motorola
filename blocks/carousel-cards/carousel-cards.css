@@ -3,11 +3,107 @@
  * Card-based carousel matching original carousel-card design
  */
 
+/* Make carousel-cards wrapper edge-to-edge when has intro */
+main > div:has(.carousel-cards.has-intro),
+main > .section:has(.carousel-cards.has-intro),
+main div.carousel-cards-wrapper:has(.carousel-cards.has-intro) {
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
 .carousel-cards {
   position: relative;
   width: 100%;
   overflow: visible;
   padding: var(--spacing-xl) 0;
+}
+
+/* Main layout container - flex row with intro + track */
+.carousel-cards .carousel-cards-layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+@media (width >= 900px) {
+  .carousel-cards .carousel-cards-layout {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+/* Intro Panel - Fixed width matching card size */
+.carousel-cards .carousel-cards-intro {
+  padding: var(--spacing-l);
+  background: transparent;
+  z-index: 2;
+  position: relative;
+}
+
+@media (width >= 900px) {
+  .carousel-cards .carousel-cards-intro {
+    flex: 0 0 330px;
+    min-width: 330px;
+    padding: var(--spacing-xl) var(--spacing-l) var(--spacing-xl) 80px;
+  }
+}
+
+@media (width >= 1200px) {
+  .carousel-cards .carousel-cards-intro {
+    padding-left: 140px;
+  }
+}
+
+.carousel-cards .carousel-cards-intro-heading {
+  font-family: Roboto, sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-color);
+  margin: 0 0 var(--spacing-m);
+}
+
+@media (width >= 768px) {
+  .carousel-cards .carousel-cards-intro-heading {
+    font-size: 36px;
+  }
+}
+
+.carousel-cards .carousel-cards-intro-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #6b6b6b;
+  margin: 0 0 var(--spacing-m);
+}
+
+.carousel-cards .carousel-cards-intro-cta a,
+.carousel-cards .carousel-cards-intro-cta strong a {
+  display: inline-block;
+  padding: 12px 28px;
+  background-color: #fff;
+  color: #1a1a1a;
+  border: 2px solid #1a1a1a;
+  border-radius: var(--button-border-radius);
+  font-size: var(--body-font-size-s);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.carousel-cards .carousel-cards-intro-cta a:hover,
+.carousel-cards .carousel-cards-intro-cta strong a:hover {
+  background-color: #1a1a1a;
+  border-color: #1a1a1a;
+  color: #fff;
+}
+
+/* Carousel Track - Contains slides and navigation */
+.carousel-cards .carousel-cards-track {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  overflow: visible;
 }
 
 .carousel-cards .carousel-cards-slides-container {
@@ -25,11 +121,15 @@
   display: flex;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
-  overflow-x: auto;
-  overflow-y: visible;
+  overflow: auto clip;
   gap: 30px;
-  padding: 20px var(--spacing-l);
-  margin: -20px 0;
+  padding: 30px var(--spacing-l);
+}
+
+/* When has intro, add left padding for shadow and extend right to edge */
+.carousel-cards.has-intro .carousel-cards-slides {
+  padding-left: 30px;
+  padding-right: 40px;
 }
 
 .carousel-cards .carousel-cards-slides::-webkit-scrollbar {
@@ -63,6 +163,11 @@
     padding: 20px var(--spacing-xxl);
   }
 
+  .carousel-cards.has-intro .carousel-cards-slides {
+    padding-left: 30px;
+    padding-right: 80px;
+  }
+
   .carousel-cards .carousel-cards-slide {
     flex: 0 0 330px;
   }
@@ -71,6 +176,11 @@
 @media (width >= 1200px) {
   .carousel-cards .carousel-cards-slides {
     padding: 20px 80px;
+  }
+
+  .carousel-cards.has-intro .carousel-cards-slides {
+    padding-left: 30px;
+    padding-right: 80px;
   }
 }
 
@@ -295,7 +405,7 @@
   display: none;
 }
 
-/* Navigation wrapper - contains arrows and dots inline */
+/* Navigation wrapper - contains arrows and dots inline, always centered */
 .carousel-cards .carousel-cards-navigation-wrapper {
   display: flex;
   justify-content: center;
