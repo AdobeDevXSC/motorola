@@ -6,7 +6,7 @@ Migrating Motorola Solutions homepage (https://www.motorolasolutions.com/en_us.h
 
 - **Content**: `/content/en-us.html`
 - **Global styles**: `/styles/styles.css`
-- **Blocks**: `/blocks/` (carousel, accordion, cards-portfolio, cards-icon, columns-logos)
+- **Blocks**: `/blocks/` (carousel, accordion, cards-portfolio, cards-icon, columns-logos, header, footer, fragment)
 - **Icons**: `/icons/` (custom SVG icons)
 - **Images**: `/content/images/` (local assets)
 
@@ -38,7 +38,7 @@ Defined in `/styles/styles.css` - reference these variable names, don't hardcode
 
 - **Link → Button**: Link alone in its own paragraph becomes a button
 - **Link stays link**: Link inline with other text stays a link
-- **Section metadata**: Use `section-metadata` block to apply styles like `highlight`, `dark`, `image-right`
+- **Section metadata**: Use `section-metadata` block to apply styles like `highlight`, `dark`, `image-full-width`
 - **Page templates**: Add `Template: homepage` to page metadata for centered default content
 
 ---
@@ -64,9 +64,9 @@ Used together in `homepage-portfolio` section. Accordion controls which cards-po
 
 Icon cards using custom SVGs from `/icons/`. Dark background (#1a1a1a), cyan strokes (#00b8e6).
 
-### image-right (Section Style)
+### image-full-width (Section Style)
 
-Text left, image extends from viewport center to right edge. Uses `width: 50vw` with negative margin trick.
+Centered text content with full viewport-width image below. Uses `width: 100vw` with `translateX(-50%)` trick.
 
 ---
 
@@ -78,7 +78,7 @@ Text left, image extends from viewport center to right edge. Uses `width: 50vw` 
 4. Accordion + cards-portfolio (homepage-portfolio section)
 5. Partner logos (columns-logos)
 6. carousel stories - "A shared vision..."
-7. image-right section - "See what safer can do..."
+7. image-full-width section - "See what safer can do..."
 8. carousel wide - "Featured news"
 9. cards-icon - "Explore Motorola Solutions"
 10. Metadata

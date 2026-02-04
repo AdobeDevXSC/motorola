@@ -581,11 +581,17 @@ main .section.image-full-width .default-content-wrapper p {
 
 /* Image - spans full viewport width */
 main .section.image-full-width .default-content-wrapper p:has(picture) {
+  align-self: flex-start;
   width: 100vw;
   margin-top: var(--spacing-l);
-  margin-left: 50%;
-  transform: translateX(-50%);
+  margin-left: calc(-1 * var(--spacing-l));
   max-width: unset;
+}
+
+@media (width >= 900px) {
+  main .section.image-full-width .default-content-wrapper p:has(picture) {
+    margin-left: calc(-1 * var(--spacing-xl));
+  }
 }
 
 /* Ensure the picture element fills the paragraph container */
