@@ -27,10 +27,11 @@ const SLIDE_TRANSITION_DELAY = 800; // Debounce delay for hero variant
 let slideUpdateTimeout = null;
 
 export function showSlide(block, slideIndex = 0) {
-  const slides = block.querySelectorAll('.carousel-slide');
+  const isWideVariant = block.classList.contains('wide');
+  const slides = block.querySelectorAll('.carousel-slide:not(.clone)');
+  const allSlides = block.querySelectorAll('.carousel-slide');
   let realSlideIndex = slideIndex < 0 ? slides.length - 1 : slideIndex;
   if (slideIndex >= slides.length) realSlideIndex = 0;
-  const activeSlide = slides[realSlideIndex];
 
   // Set flag to prevent IntersectionObserver from interfering
   isProgrammaticScroll = true;
@@ -49,7 +50,7 @@ export function showSlide(block, slideIndex = 0) {
     }
   });
 
-  // Update aria-hidden for accessibility
+  // Update aria-hidden for accessibility (non-clones only)
   slides.forEach((aSlide, idx) => {
     aSlide.setAttribute('aria-hidden', idx !== realSlideIndex);
     aSlide.querySelectorAll('a').forEach((link) => {
@@ -61,13 +62,51 @@ export function showSlide(block, slideIndex = 0) {
     });
   });
 
+  // For wide variant, update active class on real slides only (not clones)
+  if (isWideVariant) {
+    allSlides.forEach((aSlide) => {
+      const slideDataIndex = parseInt(aSlide.dataset.slideIndex, 10);
+      const isClone = aSlide.classList.contains('clone');
+      if (slideDataIndex === realSlideIndex && !isClone) {
+        aSlide.classList.add('active');
+      } else {
+        aSlide.classList.remove('active');
+      }
+    });
+  }
+
+  // Find the target slide to scroll to
+  // For wide variant with clones, we need to find the non-clone slide
+  let targetSlide;
+  if (isWideVariant) {
+    // Find the real (non-clone) slide with this index
+    targetSlide = block.querySelector(`.carousel-slide:not(.clone)[data-slide-index="${realSlideIndex}"]`);
+  } else {
+    targetSlide = slides[realSlideIndex];
+  }
+
   // Scroll to the slide
-  activeSlide.querySelectorAll('a').forEach((link) => link.removeAttribute('tabindex'));
-  block.querySelector('.carousel-slides').scrollTo({
-    top: 0,
-    left: activeSlide.offsetLeft,
-    behavior: 'smooth',
-  });
+  if (targetSlide) {
+    targetSlide.querySelectorAll('a').forEach((link) => link.removeAttribute('tabindex'));
+    const slidesContainer = block.querySelector('.carousel-slides');
+
+    if (isWideVariant) {
+      // For wide variant, scroll to center the slide
+      const slideCenter = targetSlide.offsetLeft + (targetSlide.offsetWidth / 2);
+      const containerCenter = slidesContainer.offsetWidth / 2;
+      slidesContainer.scrollTo({
+        top: 0,
+        left: slideCenter - containerCenter,
+        behavior: 'smooth',
+      });
+    } else {
+      slidesContainer.scrollTo({
+        top: 0,
+        left: targetSlide.offsetLeft,
+        behavior: 'smooth',
+      });
+    }
+  }
 
   // Reset flag after scroll animation completes
   // Clear any existing timeout to avoid race conditions
@@ -185,10 +224,112 @@ function updateIndicatorsFromScroll(block, slideIndex) {
   });
 
   // Update aria-hidden
-  const slides = block.querySelectorAll('.carousel-slide');
+  const slides = block.querySelectorAll('.carousel-slide:not(.clone)');
   slides.forEach((aSlide, idx) => {
     aSlide.setAttribute('aria-hidden', idx !== slideIndex);
   });
+
+  // For wide variant, update active class (real slides only, not clones)
+  if (block.classList.contains('wide')) {
+    const allSlides = block.querySelectorAll('.carousel-slide');
+    allSlides.forEach((aSlide) => {
+      const slideDataIndex = parseInt(aSlide.dataset.slideIndex, 10);
+      const isClone = aSlide.classList.contains('clone');
+      if (slideDataIndex === slideIndex && !isClone) {
+        aSlide.classList.add('active');
+      } else {
+        aSlide.classList.remove('active');
+      }
+    });
+  }
+}
+
+/**
+ * Setup infinite loop for wide variant by cloning first and last slides
+ */
+function setupWideCarouselInfiniteLoop(block, slidesWrapper) {
+  const slides = [...slidesWrapper.querySelectorAll('.carousel-slide')];
+  if (slides.length < 2) return;
+
+  // Clone the last slide and prepend it
+  const lastSlideClone = slides[slides.length - 1].cloneNode(true);
+  lastSlideClone.classList.add('clone');
+  lastSlideClone.setAttribute('aria-hidden', 'true');
+  slidesWrapper.insertBefore(lastSlideClone, slides[0]);
+
+  // Clone the first slide and append it
+  const firstSlideClone = slides[0].cloneNode(true);
+  firstSlideClone.classList.add('clone');
+  firstSlideClone.setAttribute('aria-hidden', 'true');
+  slidesWrapper.appendChild(firstSlideClone);
+
+  // Set initial scroll position to show first real slide (after clone)
+  requestAnimationFrame(() => {
+    const firstRealSlide = slidesWrapper.querySelector('.carousel-slide:not(.clone)');
+    if (firstRealSlide) {
+      const slideCenter = firstRealSlide.offsetLeft + (firstRealSlide.offsetWidth / 2);
+      const containerCenter = slidesWrapper.offsetWidth / 2;
+      slidesWrapper.scrollLeft = slideCenter - containerCenter;
+    }
+
+    // Mark first real slide as active (not clones)
+    slidesWrapper.querySelectorAll('.carousel-slide').forEach((slide) => {
+      if (parseInt(slide.dataset.slideIndex, 10) === 0 && !slide.classList.contains('clone')) {
+        slide.classList.add('active');
+      }
+    });
+  });
+
+  // Handle scroll snap to clones - jump to real slide
+  let scrollEndTimeout = null;
+  slidesWrapper.addEventListener('scroll', () => {
+    if (scrollEndTimeout) clearTimeout(scrollEndTimeout);
+
+    scrollEndTimeout = setTimeout(() => {
+      if (isProgrammaticScroll) return;
+
+      const realSlides = slidesWrapper.querySelectorAll('.carousel-slide:not(.clone)');
+      const firstRealSlide = realSlides[0];
+      const lastRealSlide = realSlides[realSlides.length - 1];
+      const cloneFirst = slidesWrapper.querySelector('.carousel-slide.clone:first-child');
+      const cloneLast = slidesWrapper.querySelector('.carousel-slide.clone:last-child');
+
+      const scrollLeft = slidesWrapper.scrollLeft;
+      const containerWidth = slidesWrapper.offsetWidth;
+      const scrollCenter = scrollLeft + containerWidth / 2;
+
+      // Check if scrolled to the prepended clone (last item clone at start)
+      if (cloneFirst) {
+        const cloneCenter = cloneFirst.offsetLeft + cloneFirst.offsetWidth / 2;
+        if (Math.abs(scrollCenter - cloneCenter) < cloneFirst.offsetWidth / 2) {
+          // Jump to the real last slide
+          isProgrammaticScroll = true;
+          const lastSlideCenter = lastRealSlide.offsetLeft + lastRealSlide.offsetWidth / 2;
+          slidesWrapper.scrollTo({
+            left: lastSlideCenter - containerWidth / 2,
+            behavior: 'instant',
+          });
+          setTimeout(() => { isProgrammaticScroll = false; }, 100);
+          return;
+        }
+      }
+
+      // Check if scrolled to the appended clone (first item clone at end)
+      if (cloneLast) {
+        const cloneCenter = cloneLast.offsetLeft + cloneLast.offsetWidth / 2;
+        if (Math.abs(scrollCenter - cloneCenter) < cloneLast.offsetWidth / 2) {
+          // Jump to the real first slide
+          isProgrammaticScroll = true;
+          const firstSlideCenter = firstRealSlide.offsetLeft + firstRealSlide.offsetWidth / 2;
+          slidesWrapper.scrollTo({
+            left: firstSlideCenter - containerWidth / 2,
+            behavior: 'instant',
+          });
+          setTimeout(() => { isProgrammaticScroll = false; }, 100);
+        }
+      }
+    }, 150);
+  }, { passive: true });
 }
 
 function bindEvents(block, isHeroVariant = false) {
@@ -264,8 +405,12 @@ function bindEvents(block, isHeroVariant = false) {
   }, { passive: true });
 
   // IntersectionObserver for manual scroll detection
+  const isWideVariant = block.classList.contains('wide');
   const slideObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
+      // Skip clones for indicator updates
+      if (entry.target.classList.contains('clone')) return;
+
       if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
         const slideIndex = parseInt(entry.target.dataset.slideIndex, 10);
         if (isHeroVariant) {
@@ -277,7 +422,43 @@ function bindEvents(block, isHeroVariant = false) {
     });
   }, { threshold: 0.5 });
 
-  block.querySelectorAll('.carousel-slide').forEach((slide) => {
+  // For wide variant, also track scroll position to determine center slide
+  if (isWideVariant) {
+    const slidesContainer = block.querySelector('.carousel-slides');
+    let scrollTimeout = null;
+
+    slidesContainer.addEventListener('scroll', () => {
+      if (isProgrammaticScroll) return;
+
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+
+      scrollTimeout = setTimeout(() => {
+        const containerWidth = slidesContainer.offsetWidth;
+        const scrollCenter = slidesContainer.scrollLeft + containerWidth / 2;
+
+        // Find the slide closest to center
+        const realSlides = block.querySelectorAll('.carousel-slide:not(.clone)');
+        let closestSlide = null;
+        let closestDistance = Infinity;
+
+        realSlides.forEach((slide) => {
+          const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
+          const distance = Math.abs(scrollCenter - slideCenter);
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestSlide = slide;
+          }
+        });
+
+        if (closestSlide) {
+          const slideIndex = parseInt(closestSlide.dataset.slideIndex, 10);
+          updateIndicatorsFromScroll(block, slideIndex);
+        }
+      }, 100);
+    }, { passive: true });
+  }
+
+  block.querySelectorAll('.carousel-slide:not(.clone)').forEach((slide) => {
     slideObserver.observe(slide);
   });
 
@@ -802,5 +983,10 @@ export default async function decorate(block) {
       firstIndicator.setAttribute('disabled', 'true');
     }
     bindEvents(block, false); // Pass isHeroVariant=false
+
+    // For wide variant, set up infinite loop with cloned slides
+    if (isWideVariant) {
+      setupWideCarouselInfiniteLoop(block, slidesWrapper);
+    }
   }
 }

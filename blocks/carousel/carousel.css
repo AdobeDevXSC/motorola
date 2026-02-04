@@ -25,6 +25,15 @@ main div.carousel-wrapper:has(.carousel.stories.has-intro) {
   margin: 0;
 }
 
+/* ===== WIDE VARIANT: Edge-to-edge wrapper ===== */
+main > div:has(.carousel.wide),
+main > .section:has(.carousel.wide),
+main div.carousel-wrapper:has(.carousel.wide) {
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
 /* ===== BASE CAROUSEL STYLES ===== */
 .carousel {
   position: relative;
@@ -519,32 +528,62 @@ main div.carousel-wrapper:has(.carousel.stories.has-intro) {
 
 .carousel.wide {
   padding: var(--spacing-xl) 0;
+  overflow: hidden;
 }
 
-/* Wide slides container */
+/* Wide slides container - edge to edge, centered scroll */
 .carousel.wide .carousel-slides {
+<<<<<<< aem-20260204-1238
+  gap: 40px;
+  padding: 30px 0;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  /* Calculate padding to center items: (100vw - item width) / 2 */
+  padding-left: calc((100vw - 920px) / 2);
+  padding-right: calc((100vw - 920px) / 2);
+  scroll-padding-left: calc((100vw - 920px) / 2);
+  scroll-padding-right: calc((100vw - 920px) / 2);
+=======
   gap: 30px;
   padding: 30px calc(50vw - 300px);
   scroll-padding-left: 0;
+>>>>>>> main
 }
 
-@media (width >= 768px) {
+/* Mobile: smaller centered item */
+@media (width < 768px) {
   .carousel.wide .carousel-slides {
+<<<<<<< aem-20260204-1238
+    gap: 20px;
+    padding-left: calc((100vw - min(600px, 85vw)) / 2);
+    padding-right: calc((100vw - min(600px, 85vw)) / 2);
+    scroll-padding-left: calc((100vw - min(600px, 85vw)) / 2);
+    scroll-padding-right: calc((100vw - min(600px, 85vw)) / 2);
+=======
     padding: 30px calc(50vw - 300px);
+>>>>>>> main
   }
 }
 
-@media (width >= 1200px) {
+/* Tablet: medium centered item */
+@media (width >= 768px) and (width < 1200px) {
   .carousel.wide .carousel-slides {
+<<<<<<< aem-20260204-1238
+    padding-left: calc((100vw - min(700px, 70vw)) / 2);
+    padding-right: calc((100vw - min(700px, 70vw)) / 2);
+    scroll-padding-left: calc((100vw - min(700px, 70vw)) / 2);
+    scroll-padding-right: calc((100vw - min(700px, 70vw)) / 2);
+=======
     padding: 30px calc(50vw - 300px);
+>>>>>>> main
   }
 }
 
 /* Wide Slide - Larger cards with square aspect ratio */
 .carousel.wide .carousel-slide {
-  flex: 0 0 600px;
-  min-width: 320px;
-  max-width: 600px;
+  flex: 0 0 920px;
+  min-width: 280px;
+  max-width: 920px;
   height: auto;
   position: relative;
   background: transparent;
@@ -552,13 +591,35 @@ main div.carousel-wrapper:has(.carousel.stories.has-intro) {
   border-radius: 0;
   overflow: hidden;
   scroll-snap-align: center;
+<<<<<<< aem-20260204-1238
+  transition: opacity 0.3s ease;
+}
+
+/* Non-active slides have 50% opacity */
+.carousel.wide .carousel-slide:not(.active) {
+  opacity: 0.5;
+}
+
+/* Active slide is fully visible */
+.carousel.wide .carousel-slide.active {
+  opacity: 1;
+=======
+>>>>>>> main
 }
 
 /* Mobile: responsive width */
 @media (width < 768px) {
   .carousel.wide .carousel-slide {
-    flex: 0 0 calc(100% - 60px);
-    max-width: 600px;
+    flex: 0 0 min(600px, 85vw);
+    max-width: min(600px, 85vw);
+  }
+}
+
+/* Tablet: medium width */
+@media (width >= 768px) and (width < 1200px) {
+  .carousel.wide .carousel-slide {
+    flex: 0 0 min(700px, 70vw);
+    max-width: min(700px, 70vw);
   }
 }
 
@@ -606,17 +667,21 @@ main div.carousel-wrapper:has(.carousel.stories.has-intro) {
   font-family: Roboto, sans-serif;
   font-size: 19px;
   font-weight: 400;
-  line-height: 1.42;
+  line-height: 27px;
   color: rgba(255, 255, 255, 0.95);
+<<<<<<< aem-20260204-1238
+  margin: 0 0 16px;
+=======
   margin: 0;
   padding-left: 0;
+>>>>>>> main
 }
 
-/* Wide card button - white background */
+/* Wide card button - white pill button */
 .carousel.wide .carousel-slide-cta {
   display: inline-block;
   background-color: #fff;
-  color: #1a1a1a;
+  color: #000;
   font-family: Roboto, sans-serif;
   font-size: 14px;
   font-weight: 500;
@@ -624,7 +689,10 @@ main div.carousel-wrapper:has(.carousel.stories.has-intro) {
   padding: 8px 20px;
   border: none;
   border-radius: 25px;
+<<<<<<< aem-20260204-1238
+=======
   margin-left: 0;
+>>>>>>> main
   transition: background-color var(--transition-fast);
   white-space: nowrap;
   flex-shrink: 0;
@@ -638,6 +706,11 @@ main div.carousel-wrapper:has(.carousel.stories.has-intro) {
 /* Hide the standard content wrapper for wide variant */
 .carousel.wide .carousel-slide-content {
   display: none;
+}
+
+/* Cloned slides for infinite loop effect */
+.carousel.wide .carousel-slide.clone {
+  /* Clones should behave identically to real slides */
 }
 
 /* ============================================= */
