@@ -215,4 +215,4 @@ Always include ARIA attributes on interactive elements:
 3. Check hover states - many elements have specific behaviors
 4. Follow existing patterns in the codebase
 5. Update this file when learning new project-specific patterns
-6. Run lint checks pass before considering work complete
+6. Screenshots go in `/tmp` folder only, NEVER at project root
