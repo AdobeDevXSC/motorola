@@ -264,9 +264,19 @@ function createSlide(row, slideIndex, carouselId) {
       }
     });
 
-    // Create links wrapper
+    // Create horizontal divider
+    const divider = document.createElement('hr');
+    divider.classList.add('carousel-cards-divider');
+
+    // Create links wrapper with left/right containers
     const linksWrapper = document.createElement('div');
     linksWrapper.classList.add('carousel-cards-links');
+
+    const linksLeft = document.createElement('div');
+    linksLeft.classList.add('carousel-cards-links-left');
+
+    const linksRight = document.createElement('div');
+    linksRight.classList.add('carousel-cards-links-right');
 
     // Find all links
     const links = cols[1].querySelectorAll('a');
@@ -274,22 +284,37 @@ function createSlide(row, slideIndex, carouselId) {
       const linkText = link.textContent.trim().toLowerCase();
       const newLink = document.createElement('a');
       newLink.href = link.href;
-      newLink.textContent = link.textContent.trim();
 
       if (linkText.includes('learn more') || linkText.includes('read')) {
         newLink.classList.add('carousel-cards-link-primary');
+        newLink.textContent = link.textContent.trim();
+        linksLeft.append(newLink);
       } else if (linkText.includes('watch') || linkText.includes('video')) {
         newLink.classList.add('carousel-cards-link-video');
+        // Screen reader text in span (visually hidden)
+        const span = document.createElement('span');
+        span.textContent = link.textContent.trim();
+        newLink.append(span);
+        linksRight.append(newLink);
       } else if (linkText.includes('download') || linkText.includes('case study')) {
         newLink.classList.add('carousel-cards-link-download');
+        // Screen reader text in span (visually hidden)
+        const span = document.createElement('span');
+        span.textContent = link.textContent.trim();
+        newLink.append(span);
+        linksRight.append(newLink);
       } else {
         newLink.classList.add('carousel-cards-link-primary');
+        newLink.textContent = link.textContent.trim();
+        linksLeft.append(newLink);
       }
-
-      linksWrapper.append(newLink);
     });
 
-    if (linksWrapper.children.length > 0) {
+    // Only add divider and links if there are links
+    if (linksLeft.children.length > 0 || linksRight.children.length > 0) {
+      contentWrapper.append(divider);
+      linksWrapper.append(linksLeft);
+      linksWrapper.append(linksRight);
       contentWrapper.append(linksWrapper);
     }
 
@@ -303,7 +328,25 @@ let carouselId = 0;
 export default async function decorate(block) {
   carouselId += 1;
   block.setAttribute('id', `carousel-cards-${carouselId}`);
-  const rows = block.querySelectorAll(':scope > div');
+
+  // Filter out title row (contains only H2)
+  const allRows = [...block.querySelectorAll(':scope > div')];
+  const rows = allRows.filter((row) => {
+    const h2 = row.querySelector('h2');
+    // Skip row if it only contains an H2 (title row)
+    if (h2 && row.children.length === 1 && row.children[0].tagName === 'H2') {
+      return false;
+    }
+    // Also skip if row has only one child div containing just H2
+    if (row.children.length === 1) {
+      const firstChild = row.children[0];
+      if (firstChild.querySelector('h2') && !firstChild.querySelector('picture, img')) {
+        return false;
+      }
+    }
+    return true;
+  });
+
   const isSingleSlide = rows.length < 2;
 
   block.setAttribute('role', 'region');
@@ -335,18 +378,23 @@ export default async function decorate(block) {
     container.append(slideNavButtons);
   }
 
-  rows.forEach((row, idx) => {
-    const slide = createSlide(row, idx, carouselId);
+  // Remove title rows (filtered out earlier)
+  allRows.filter((row) => !rows.includes(row)).forEach((row) => row.remove());
+
+  let slideIdx = 0;
+  rows.forEach((row) => {
+    const slide = createSlide(row, slideIdx, carouselId);
     slidesWrapper.append(slide);
 
     if (slideIndicators) {
       const indicator = document.createElement('li');
       indicator.classList.add('carousel-cards-slide-indicator');
-      indicator.dataset.targetSlide = idx;
-      indicator.innerHTML = `<button type="button" aria-label="${placeholders.showSlide} ${idx + 1} ${placeholders.of} ${rows.length}"></button>`;
+      indicator.dataset.targetSlide = slideIdx;
+      indicator.innerHTML = `<button type="button" aria-label="${placeholders.showSlide} ${slideIdx + 1} ${placeholders.of} ${rows.length}"></button>`;
       slideIndicators.append(indicator);
     }
     row.remove();
+    slideIdx += 1;
   });
 
   container.append(slidesWrapper);
