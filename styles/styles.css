@@ -248,6 +248,11 @@ a:focus {
   outline-offset: var(--focus-outline-offset);
 }
 
+/* ===== FORM ELEMENTS ===== */
+input, textarea, select, button {
+  font: inherit;
+}
+
 /* ===== BUTTONS ===== */
 a.button:any-link,
 button {
@@ -577,4 +582,70 @@ main .section.image-full-width .default-content-wrapper picture img {
   width: 100%;
   height: auto;
   max-width: none;
+}
+
+/* ===== TEMPLATE: TEMPLATE-HOME ===== */
+
+/* Center default content (non-block content) on template-home pages */
+
+/* Exception: sections containing carousel.stories keep left-aligned text for intro panel */
+body.template-home main > .section:not(:has(.carousel.stories)) .default-content-wrapper {
+  text-align: center;
+}
+
+body.template-home main > .section:not(:has(.carousel.stories)) .default-content-wrapper p,
+body.template-home main > .section:not(:has(.carousel.stories)) .default-content-wrapper h1,
+body.template-home main > .section:not(:has(.carousel.stories)) .default-content-wrapper h2,
+body.template-home main > .section:not(:has(.carousel.stories)) .default-content-wrapper h3,
+body.template-home main > .section:not(:has(.carousel.stories)) .default-content-wrapper h4,
+body.template-home main > .section:not(:has(.carousel.stories)) .default-content-wrapper h5,
+body.template-home main > .section:not(:has(.carousel.stories)) .default-content-wrapper h6 {
+  text-align: center;
+}
+
+body.template-home main > .section:not(:has(.carousel.stories)) .default-content-wrapper img {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== UTILITY CLASSES ===== */
+
+/* Text alignment */
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* Font sizes */
+.text-small {
+  font-size: var(--body-font-size-s);
+}
+
+.text-large {
+  font-size: var(--body-font-size-l);
+}
+
+/* Font weights */
+.font-bold {
+  font-weight: 700;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+/* Colors */
+.text-primary {
+  color: var(--color-brand-primary);
+}
+
+.text-secondary {
+  color: var(--text-color-secondary);
 }

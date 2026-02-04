@@ -1,3 +1,5 @@
+/* stylelint-disable no-descending-specificity */
+
 /**
  * Carousel Block - Unified CSS with variant support
  *
@@ -516,8 +518,14 @@ main div.carousel-wrapper:has(.carousel.wide) {
 /* stylelint-disable no-descending-specificity -- variant overrides base styles */
 
 .carousel.wide {
-  padding: var(--spacing-xl) 0;
+  padding: 0 0 var(--spacing-xl);
   overflow: hidden;
+}
+
+/* Wide variant navigation - margin below instead of above */
+.carousel.wide .carousel-navigation-wrapper {
+  margin-top: 0;
+  margin-bottom: calc(2 * var(--spacing-xl));
 }
 
 /* Wide slides container - edge to edge, centered scroll */
