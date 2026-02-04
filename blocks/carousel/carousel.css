@@ -533,6 +533,7 @@ main div.carousel-wrapper:has(.carousel.wide) {
 
 /* Wide slides container - edge to edge, centered scroll */
 .carousel.wide .carousel-slides {
+<<<<<<< aem-20260204-1238
   gap: 40px;
   padding: 30px 0;
   scroll-snap-type: x mandatory;
@@ -542,26 +543,39 @@ main div.carousel-wrapper:has(.carousel.wide) {
   padding-right: calc((100vw - 920px) / 2);
   scroll-padding-left: calc((100vw - 920px) / 2);
   scroll-padding-right: calc((100vw - 920px) / 2);
+=======
+  gap: 30px;
+  padding: 30px calc(50vw - 300px);
+  scroll-padding-left: 0;
+>>>>>>> main
 }
 
 /* Mobile: smaller centered item */
 @media (width < 768px) {
   .carousel.wide .carousel-slides {
+<<<<<<< aem-20260204-1238
     gap: 20px;
     padding-left: calc((100vw - min(600px, 85vw)) / 2);
     padding-right: calc((100vw - min(600px, 85vw)) / 2);
     scroll-padding-left: calc((100vw - min(600px, 85vw)) / 2);
     scroll-padding-right: calc((100vw - min(600px, 85vw)) / 2);
+=======
+    padding: 30px calc(50vw - 300px);
+>>>>>>> main
   }
 }
 
 /* Tablet: medium centered item */
 @media (width >= 768px) and (width < 1200px) {
   .carousel.wide .carousel-slides {
+<<<<<<< aem-20260204-1238
     padding-left: calc((100vw - min(700px, 70vw)) / 2);
     padding-right: calc((100vw - min(700px, 70vw)) / 2);
     scroll-padding-left: calc((100vw - min(700px, 70vw)) / 2);
     scroll-padding-right: calc((100vw - min(700px, 70vw)) / 2);
+=======
+    padding: 30px calc(50vw - 300px);
+>>>>>>> main
   }
 }
 
@@ -577,6 +591,7 @@ main div.carousel-wrapper:has(.carousel.wide) {
   border-radius: 0;
   overflow: hidden;
   scroll-snap-align: center;
+<<<<<<< aem-20260204-1238
   transition: opacity 0.3s ease;
 }
 
@@ -588,6 +603,8 @@ main div.carousel-wrapper:has(.carousel.wide) {
 /* Active slide is fully visible */
 .carousel.wide .carousel-slide.active {
   opacity: 1;
+=======
+>>>>>>> main
 }
 
 /* Mobile: responsive width */
@@ -640,6 +657,9 @@ main div.carousel-wrapper:has(.carousel.wide) {
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   padding: 16px 30px;
+  display: flex;
+  align-items: center;
+  gap: 50px;
 }
 
 /* Wide card description text */
@@ -649,7 +669,12 @@ main div.carousel-wrapper:has(.carousel.wide) {
   font-weight: 400;
   line-height: 27px;
   color: rgba(255, 255, 255, 0.95);
+<<<<<<< aem-20260204-1238
   margin: 0 0 16px;
+=======
+  margin: 0;
+  padding-left: 0;
+>>>>>>> main
 }
 
 /* Wide card button - white pill button */
@@ -664,7 +689,13 @@ main div.carousel-wrapper:has(.carousel.wide) {
   padding: 8px 20px;
   border: none;
   border-radius: 25px;
+<<<<<<< aem-20260204-1238
+=======
+  margin-left: 0;
+>>>>>>> main
   transition: background-color var(--transition-fast);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .carousel.wide .carousel-slide-cta:hover {
