@@ -27,6 +27,11 @@
 }
 
 .accordion .accordion-item:last-child {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Hide last item border only when expanded */
+.accordion .accordion-item:last-child.expanded {
   border-bottom: none;
 }
 
@@ -82,13 +87,11 @@
 
 /* Accordion Content (expandable) */
 .accordion .accordion-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-out;
+  display: none;
 }
 
 .accordion .accordion-item.expanded .accordion-content {
-  max-height: 500px;
+  display: block;
 }
 
 .accordion .accordion-content-inner {
@@ -136,6 +139,11 @@
    HOMEPAGE-PORTFOLIO SECTION VARIANT
    Two-column layout with dynamic image switching
    =========================================== */
+
+/* Reduced padding for portfolio section */
+.section.homepage-portfolio .accordion {
+  padding-bottom: var(--spacing-l);
+}
 
 /* Two-column wrapper in portfolio section */
 .section.homepage-portfolio .accordion .accordion-wrapper {

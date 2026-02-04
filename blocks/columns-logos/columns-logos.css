@@ -1,77 +1,62 @@
 /**
  * Columns Logos Block - Motorola Solutions Style
- * Logo strip for partner/certification badges
+ * Continuous scrolling logo marquee
  */
 
 .columns-logos {
   padding: var(--spacing-xl) 0;
   background-color: var(--background-color);
+  overflow: hidden;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-/* Container */
-.columns-logos > div {
+/* Marquee track - contains duplicated logo rows */
+.columns-logos .logo-marquee-track {
   display: flex;
-  flex-direction: column;
+  width: max-content;
+  animation: marquee-scroll 30s linear infinite;
+}
+
+/* Individual logo set (will be duplicated for seamless loop) */
+.columns-logos .logo-set {
+  display: flex;
   align-items: center;
-  gap: var(--spacing-l);
+  gap: var(--spacing-xxl);
+  padding-right: var(--spacing-xxl);
 }
 
-/* Mobile Stack */
-.columns-logos > div > div {
-  order: 1;
+/* Logo wrapper */
+.columns-logos .logo-item {
+  flex-shrink: 0;
 }
 
-.columns-logos > div > .columns-logos-img-col {
-  order: 0;
-}
-
-/* Logo Images */
+/* Logo Images - Full color, no grayscale */
 .columns-logos img {
-  width: 100%;
-  max-width: 100px;
-  height: auto;
+  width: auto;
+  height: 100px;
+  max-width: 280px;
   object-fit: contain;
-  filter: grayscale(100%);
-  opacity: 0.7;
-  transition: filter var(--transition-fast), opacity var(--transition-fast);
-}
-
-.columns-logos img:hover {
-  filter: grayscale(0%);
-  opacity: 1;
-}
-
-.columns-logos > div > .columns-logos-img-col img {
   display: block;
 }
 
-/* Tablet: Horizontal Row */
+/* Tablet and Desktop: Larger gaps */
 @media (width >= 600px) {
-  .columns-logos > div {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--spacing-xl) var(--spacing-xxl);
-  }
-
-  .columns-logos > div > div {
-    flex: 0 0 auto;
-    order: unset;
-  }
-
-  .columns-logos img {
-    max-width: 120px;
+  .columns-logos .logo-set {
+    gap: var(--spacing-xxxl);
+    padding-right: var(--spacing-xxxl);
   }
 }
 
-/* Desktop: More Spacing */
-@media (width >= 900px) {
-  .columns-logos > div {
-    gap: var(--spacing-xl) var(--spacing-xxxl);
+/* Continuous scroll animation */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
   }
-
-  .columns-logos img {
-    max-width: 140px;
+  100% {
+    transform: translateX(-50%);
   }
 }
 
@@ -80,10 +65,33 @@
   background-color: transparent;
 }
 
-.section.dark .columns-logos img {
-  filter: grayscale(100%) brightness(1.2);
+/* Fade edges for smooth visual effect */
+.columns-logos::before,
+.columns-logos::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  z-index: 2;
+  pointer-events: none;
 }
 
-.section.dark .columns-logos img:hover {
-  filter: grayscale(0%) brightness(1);
+.columns-logos::before {
+  left: 0;
+  background: linear-gradient(to right, var(--background-color), transparent);
+}
+
+.columns-logos::after {
+  right: 0;
+  background: linear-gradient(to left, var(--background-color), transparent);
+}
+
+/* Dark section fade edges */
+.section.dark .columns-logos::before {
+  background: linear-gradient(to right, var(--background-color-dark), transparent);
+}
+
+.section.dark .columns-logos::after {
+  background: linear-gradient(to left, var(--background-color-dark), transparent);
 }

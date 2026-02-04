@@ -37,12 +37,8 @@
   background: var(--background-color);
   border-radius: 8px;
   overflow: hidden;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.cards-portfolio .cards-portfolio-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  text-decoration: none;
+  color: inherit;
 }
 
 /* Card image */
@@ -56,11 +52,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--transition-fast);
-}
-
-.cards-portfolio .cards-portfolio-card:hover img {
-  transform: scale(1.05);
 }
 
 /* Card content */
@@ -69,31 +60,22 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xs);
+  text-align: center;
 }
 
 .cards-portfolio .cards-portfolio-card-title {
-  font-size: var(--body-font-size-s);
+  font-size: 18px;
   font-weight: 500;
   color: var(--text-color);
   margin: 0;
   line-height: 1.3;
 }
 
-@media (width >= 768px) {
-  .cards-portfolio .cards-portfolio-card-title {
-    font-size: var(--body-font-size-m);
-  }
-}
-
+/* "Learn more" styled as link but not interactive (card is clickable) */
 .cards-portfolio .cards-portfolio-card-link {
-  font-size: var(--body-font-size-xs);
+  font-size: 18px;
   color: var(--link-color);
-  text-decoration: none;
   font-weight: 500;
-}
-
-.cards-portfolio .cards-portfolio-card-link:hover {
-  text-decoration: underline;
 }
 
 /* Scope to homepage-portfolio section */

@@ -29,8 +29,14 @@ export default function decorate(block) {
     const cols = [...row.children];
     if (cols.length === 0) return;
 
-    const card = document.createElement('div');
+    // Find link first to get href
+    const link = row.querySelector('a');
+    const linkHref = link ? link.href : '#';
+
+    // Create card as anchor element for full clickability
+    const card = document.createElement('a');
     card.classList.add('cards-portfolio-card');
+    card.href = linkHref;
 
     // Find image
     const pic = row.querySelector('picture');
@@ -53,15 +59,11 @@ export default function decorate(block) {
       }
     });
 
-    // Find link
-    const link = row.querySelector('a');
-    if (link) {
-      const cardLink = document.createElement('a');
-      cardLink.classList.add('cards-portfolio-card-link');
-      cardLink.href = link.href;
-      cardLink.textContent = 'Learn more';
-      content.append(cardLink);
-    }
+    // Add "Learn more" text (styled as link but not interactive)
+    const learnMore = document.createElement('span');
+    learnMore.classList.add('cards-portfolio-card-link');
+    learnMore.textContent = 'Learn more';
+    content.append(learnMore);
 
     card.append(content);
     grid.append(card);

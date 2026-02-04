@@ -163,6 +163,73 @@ main div.block-name-wrapper {
 
 ## Block-Specific Patterns
 
+### Accordion (Homepage Portfolio Variant)
+The accordion block has a special two-column layout when placed in a `homepage-portfolio` section.
+
+**Section setup:**
+```markdown
++---------------+---------------------+
+| **Section Metadata**                |
++---------------+---------------------+
+| Style         | homepage-portfolio  |
++---------------+---------------------+
+```
+
+**Features:**
+- Two-column layout (50%/50%) at desktop (900px+)
+- Left column: Expandable accordion items
+- Right column: Sticky images that switch based on selected accordion item
+- H3 titles in accordion headers (not strong text)
+- Chevron icon hides when item is expanded (opacity: 0)
+- Only one item open at a time
+- First item expanded by default
+
+**Content structure (per accordion row):**
+```html
+<h3>Title Text</h3>
+<p><strong>Subtitle text.</strong></p>
+<p>Description paragraph.</p>
+<p><a href="...">Link text</a></p>
+| image column with picture |
+```
+
+**JS behavior:**
+- Detects H3 as title (falls back to first strong if no H3)
+- Stores title in `data-title` attribute for cards-portfolio matching
+- Stores index in `data-index` for image switching
+
+**CSS key points:**
+- Image column uses `align-self: flex-start` to prevent stretching taller than accordion
+- Images display at 85% width, centered with `margin: 0 auto`
+- Mobile: Image column shows above accordion (column-reverse)
+
+### Cards Portfolio
+Product cards that show/hide based on accordion selection. Used in conjunction with accordion in `homepage-portfolio` section.
+
+**Features:**
+- Hidden by default (`display: none`), shown when `.active` class added
+- H2 category title (hidden via CSS, used for matching)
+- 4-column grid at desktop, 2-column on mobile
+- Card hover effect: translateY(-4px) with shadow
+
+**Cross-block communication:**
+- Accordion stores titles in `data-title` attribute
+- Cards-portfolio stores category in `data-category` attribute (from H2)
+- Accordion JS calls `showCardsPortfolio(title)` to toggle visibility
+- Matching is exact string comparison between accordion title and cards category
+
+**Content structure:**
+```html
+<div class="cards-portfolio">
+  <div><h2>Category Title</h2></div>  <!-- Hidden, used for matching -->
+  <div>
+    <div>| picture |</div>
+    <div><p>Card title</p><p><a href="...">Learn more</a></p></div>
+  </div>
+  <!-- More cards... -->
+</div>
+```
+
 ### Carousel Hero
 - Full-width with dark gradient overlay
 - Overlay gradient: `linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%)`
@@ -176,6 +243,51 @@ main div.block-name-wrapper {
 - Brightcove video thumbnails follow pattern: `https://cf-images.us-east-1.prod.boltdns.net/v1/jit/{accountId}/{videoId}/main/1280x720/{timestamp}/match/image.jpg`
 
 ## Common Patterns
+
+### Cross-Block Communication
+When blocks need to interact with each other (like accordion controlling cards-portfolio):
+
+1. **Use data attributes** for storing identifiers:
+   ```javascript
+   element.dataset.category = 'Title';  // Sets data-category="Title"
+   element.dataset.index = 0;           // Sets data-index="0"
+   ```
+
+2. **Query within section scope** to avoid affecting other instances:
+   ```javascript
+   const section = block.closest('.section');
+   const relatedBlocks = section.querySelectorAll('.other-block');
+   ```
+
+3. **Use class toggling** for visibility:
+   ```javascript
+   relatedBlocks.forEach(b => {
+     if (b.dataset.category === selectedTitle) {
+       b.classList.add('active');
+     } else {
+       b.classList.remove('active');
+     }
+   });
+   ```
+
+4. **Delay initialization** if blocks load asynchronously:
+   ```javascript
+   setTimeout(() => showRelatedContent(title), 100);
+   ```
+
+### Section-Scoped Block Variants
+To create block variants that only apply within specific sections:
+
+```css
+/* Default block styling */
+.accordion { ... }
+
+/* Section-specific variant */
+.section.homepage-portfolio .accordion { ... }
+.section.homepage-portfolio .accordion .accordion-column { ... }
+```
+
+This allows the same block to have different layouts in different contexts without creating separate block types.
 
 ### Dark Overlay on Images
 ```css
