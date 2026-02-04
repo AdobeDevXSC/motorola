@@ -179,8 +179,6 @@
   .section.homepage-portfolio .accordion .accordion-image-column {
     flex: 0 0 50%;
     max-width: 50%;
-    position: sticky;
-    top: var(--spacing-xxl);
     align-self: flex-start; /* Prevent column from stretching taller than accordion column */
   }
 }
@@ -202,7 +200,7 @@
 }
 
 .section.homepage-portfolio .accordion .accordion-image img {
-  width: 85%;
+  width: 70%;
   height: auto;
   border-radius: 8px;
   display: block;

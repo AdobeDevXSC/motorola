@@ -35,7 +35,6 @@
   display: flex;
   flex-direction: column;
   background: var(--background-color);
-  border-radius: 8px;
   overflow: hidden;
   text-decoration: none;
   color: inherit;
@@ -44,7 +43,7 @@
 /* Card image */
 .cards-portfolio .cards-portfolio-card picture {
   display: block;
-  aspect-ratio: 4/3;
+  aspect-ratio: 1/1;
   overflow: hidden;
 }
 
