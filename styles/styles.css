@@ -513,6 +513,14 @@ body.template-home main .default-content-wrapper img {
   margin-right: auto;
 }
 
+/* ===== HIDDEN ELEMENTS ===== */
+
+/* Hide metadata block - it contains page metadata, not visible content */
+.metadata-wrapper,
+.metadata-container {
+  display: none;
+}
+
 /* ===== UTILITY CLASSES ===== */
 
 /* Text alignment */

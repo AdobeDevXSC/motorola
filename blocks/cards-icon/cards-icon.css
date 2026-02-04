@@ -21,29 +21,37 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--spacing-m);
   text-align: center;
 }
 
 @media (width >= 600px) {
   .cards-icon > ul {
-    grid-template-columns: repeat(5, 1fr);
     gap: var(--spacing-l);
   }
 }
 
 /* Individual Icon Card */
 .cards-icon > ul > li {
+  box-sizing: border-box;
   background-color: transparent;
   padding: var(--spacing-m);
   border-radius: 8px;
   transition: box-shadow var(--transition-fast);
+  flex: 1 1 120px;
+  min-width: 120px;
+  max-width: 160px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cards-icon > ul > li:hover {
-  box-shadow: var(--shadow-card-elevated);
+  box-shadow: 0 8px 20px 0 rgb(35 35 35 / 25%);
 }
 
 /* Card Link Wrapper - wraps entire card content */
@@ -104,7 +112,7 @@
 }
 
 .section.dark .cards-icon > ul > li:hover {
-  box-shadow: 0 10px 30px 0 rgb(255 255 255 / 15%);
+  box-shadow: 0 8px 20px 0 rgb(255 255 255 / 25%);
 }
 
 .section.dark .cards-icon .cards-icon-card-body a {

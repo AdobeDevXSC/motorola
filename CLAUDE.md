@@ -2,6 +2,16 @@
 
 Migrating Motorola Solutions homepage (https://www.motorolasolutions.com/en_us.html) to Adobe Edge Delivery Services.
 
+---
+
+## ⚠️ CRITICAL RULES
+
+1. **NEVER create screenshots outside `/tmp` folder** - All screenshots MUST be saved to `/tmp/` directory. Never save screenshots to project root or any workspace folder.
+2. **Always read files before editing** - Never modify code without reading it first.
+3. **Use `box-sizing: border-box`** - When setting explicit width/height on elements with padding.
+
+---
+
 ## Key Files
 
 - **Content**: `/content/en-us.html`
@@ -85,17 +95,31 @@ body.template-home main > .section:not(:has(.carousel.stories)) .default-content
 | Default | `.carousel` | Simple horizontal scrolling cards (330px) |
 
 **Wide variant specifics**:
+- Card aspect ratio: `920 / 560` (1.64:1)
 - No padding-top (`padding: 0 0 var(--spacing-xl)`)
 - Navigation below slides with double margin (`margin-bottom: calc(2 * var(--spacing-xl))`)
 - Centered active slide, edge-to-edge, cloned slides for seamless infinite scroll
+- Inactive slides at 50% opacity, active at 100%
 
 ### accordion + cards-portfolio
 
 Used together in `homepage-portfolio` section. Accordion controls which cards-portfolio group is visible via `data-title`/`data-category` matching.
 
+**cards-portfolio image constraints**: Max 250x250px, centered with `margin: 0 auto`
+
 ### cards-icon
 
 Icon cards using custom SVGs from `/icons/`. Dark background (#1a1a1a), cyan strokes (#00b8e6).
+
+**Sizing**: Flexible cards that scale between 120px-160px wide, 120px tall
+```css
+flex: 1 1 120px;
+min-width: 120px;
+max-width: 160px;
+height: 120px;
+```
+
+**Hover**: Custom shadow `0 8px 20px 0 rgb(35 35 35 / 25%)` (dark variant uses white)
 
 ### image-full-width (Section Style)
 
@@ -168,6 +192,25 @@ Use consistent section headers:
 - Avoid external context selectors unless necessary (e.g., `.section.dark .my-block`)
 - Use `:has()` on wrapper for edge-to-edge blocks: `main > div:has(.my-block)`
 
+### Fixed Dimensions with Padding
+When setting explicit width/height on elements that also have padding:
+```css
+/* ✓ Correct - dimensions include padding */
+.card {
+  box-sizing: border-box;
+  width: 160px;
+  height: 120px;
+  padding: 16px;
+}
+
+/* ✗ Wrong - actual size will be 192x152px */
+.card {
+  width: 160px;
+  height: 120px;
+  padding: 16px;
+}
+```
+
 ### Font Family
 Always use the variable, never hardcode:
 ```css
@@ -210,9 +253,10 @@ Always include ARIA attributes on interactive elements:
 
 ## Reminders
 
-1. Always read files before editing
-2. Test in preview at localhost:3000
-3. Check hover states - many elements have specific behaviors
-4. Follow existing patterns in the codebase
-5. Update this file when learning new project-specific patterns
-6. Screenshots go in `/tmp` folder only, NEVER at project root
+1. **Screenshots → `/tmp/` ONLY** - Never save to project root or workspace
+2. Always read files before editing
+3. Test in preview at localhost:3000
+4. Check hover states - many elements have specific behaviors
+5. Follow existing patterns in the codebase
+6. Update this file when learning new project-specific patterns
+7. Use `box-sizing: border-box` when setting width/height on padded elements
