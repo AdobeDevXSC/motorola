@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <rect x="29" y="30.25" width="7.5" height="6.25" fill="none" stroke="#00a3e0" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1.5"/>
+  <line x1="24" y1="30.25" x2="19" y2="30.25" fill="none" stroke="#00a3e0" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1.5"/>
+  <line x1="24" y1="36.5" x2="19" y2="36.5" fill="none" stroke="#00a3e0" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1.5"/>
+  <rect x="19" y="11.5" width="7.5" height="6.25" fill="none" stroke="#00a3e0" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1.5"/>
+  <line x1="19" y1="24" x2="36.5" y2="24" fill="none" stroke="#111" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1.5"/>
+  <line x1="31.5" y1="17.75" x2="36.5" y2="17.75" fill="none" stroke="#00a3e0" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1.5"/>
+  <line x1="31.5" y1="11.5" x2="36.5" y2="11.5" fill="none" stroke="#00a3e0" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1.5"/>
+  <path d="m12.75,26.5h-7.5v12.5c0,2.06,1.69,3.75,3.75,3.75" fill="none" stroke="#111" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1.5"/>
+  <path d="m12.75,5.25v33.75c0,2.06-1.69,3.75-3.75,3.75h30c2.06,0,3.75-1.69,3.75-3.75V5.25H12.75Z" fill="none" stroke="#111" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1.5"/>
+</svg>

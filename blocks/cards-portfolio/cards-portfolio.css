@@ -1,0 +1,83 @@
+/**
+ * Cards Portfolio Block
+ * Product cards displayed below accordion in homepage-portfolio section
+ * Visibility controlled by accordion item selection
+ */
+
+.cards-portfolio {
+  display: none;
+  padding: var(--spacing-l) 0;
+}
+
+.cards-portfolio.active {
+  display: block;
+}
+
+.cards-portfolio h2 {
+  display: none; /* Title used for matching, not displayed */
+}
+
+.cards-portfolio .cards-portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-m);
+}
+
+@media (width >= 600px) {
+  .cards-portfolio .cards-portfolio-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-l);
+  }
+}
+
+/* Individual card */
+.cards-portfolio .cards-portfolio-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--background-color);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Card image */
+.cards-portfolio .cards-portfolio-card picture {
+  display: block;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+}
+
+.cards-portfolio .cards-portfolio-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Card content */
+.cards-portfolio .cards-portfolio-card-content {
+  padding: var(--spacing-m);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  text-align: center;
+}
+
+.cards-portfolio .cards-portfolio-card-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-color);
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* "Learn more" styled as link but not interactive (card is clickable) */
+.cards-portfolio .cards-portfolio-card-link {
+  font-size: 18px;
+  color: var(--link-color);
+  font-weight: 500;
+}
+
+/* Scope to homepage-portfolio section */
+.section.homepage-portfolio .cards-portfolio {
+  margin-top: var(--spacing-xl);
+}

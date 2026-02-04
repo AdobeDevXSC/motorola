@@ -7,3 +7,7 @@ helix-importer-ui
 .DS_Store
 *.bak
 .idea
+CLAUDE.html
+CLAUDE.plain.html
+agent.html
+agent.plain.html
