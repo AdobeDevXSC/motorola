@@ -273,58 +273,6 @@ function createSlide(row, slideIndex, carouselId) {
   return slide;
 }
 
-/**
- * Extract intro content from preceding siblings in the section
- * Returns the intro panel element if content found, null otherwise
- */
-function createIntroPanel(block) {
-  // Get the wrapper div that contains the carousel-cards block
-  const wrapper = block.closest('.carousel-cards-wrapper');
-  if (!wrapper) return null;
-
-  // Get the section containing the wrapper
-  const section = wrapper.closest('.section');
-  if (!section) return null;
-
-  // Find the default-content-wrapper that precedes the carousel-cards-wrapper
-  const defaultContentWrapper = section.querySelector('.default-content-wrapper');
-  if (!defaultContentWrapper) return null;
-
-  // Check if there's meaningful content (h2, paragraphs)
-  const h2 = defaultContentWrapper.querySelector('h2');
-  const paragraphs = defaultContentWrapper.querySelectorAll('p');
-
-  if (!h2 && paragraphs.length === 0) return null;
-
-  // Create intro panel
-  const introPanel = document.createElement('div');
-  introPanel.classList.add('carousel-cards-intro');
-
-  // Clone the content
-  if (h2) {
-    const heading = document.createElement('h2');
-    heading.classList.add('carousel-cards-intro-heading');
-    heading.textContent = h2.textContent;
-    introPanel.append(heading);
-  }
-
-  paragraphs.forEach((p) => {
-    const clonedP = p.cloneNode(true);
-    // Check if it's a CTA (has strong > a)
-    const strongLink = clonedP.querySelector('strong a');
-    if (strongLink) {
-      clonedP.classList.add('carousel-cards-intro-cta');
-    } else {
-      clonedP.classList.add('carousel-cards-intro-description');
-    }
-    introPanel.append(clonedP);
-  });
-
-  // Hide the original default content (we've moved it into the carousel)
-  defaultContentWrapper.style.display = 'none';
-
-  return introPanel;
-}
 
 let carouselId = 0;
 export default async function decorate(block) {
@@ -354,18 +302,9 @@ export default async function decorate(block) {
   block.setAttribute('role', 'region');
   block.setAttribute('aria-roledescription', placeholders.carousel);
 
-  // Create intro panel from preceding default content
-  const introPanel = createIntroPanel(block);
-
   // Create main layout container
   const mainLayout = document.createElement('div');
   mainLayout.classList.add('carousel-cards-layout');
-
-  // Add intro panel if it exists
-  if (introPanel) {
-    mainLayout.append(introPanel);
-    block.classList.add('has-intro');
-  }
 
   // Create carousel track container
   const carouselTrack = document.createElement('div');
