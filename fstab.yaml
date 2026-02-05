@@ -1,4 +1,0 @@
-mountpoints:
-  /:
-    url: https://github.com/AdobeDevXSC/motorola
-    type: markup
