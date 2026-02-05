@@ -109,23 +109,26 @@ header .nav-primary-tools a:hover img {
 /* ===== SEARCH BOX ===== */
 header .nav-primary-tools .search-form {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   background-color: #fff;
   border: 1px solid #e6e7e8;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 4px 8px 0 rgb(35 35 35 / 8%);
+  height: 36px;
+  margin-right: 12px;
 }
 
 header .nav-primary-tools .search-form input[type="search"] {
   border: none;
   background: transparent;
-  padding: 8px 12px;
+  padding: 0 12px;
   font-size: 12px;
   font-family: var(--body-font-family);
   color: var(--text-color);
   width: 170px;
   outline: none;
+  height: 100%;
 }
 
 header .nav-primary-tools .search-form input[type="search"]::placeholder {
@@ -142,10 +145,9 @@ header .nav-primary-tools .search-form button {
   justify-content: center;
   background-color: rgb(0 0 0 / 90%);
   border: none;
-  border-radius: 14px;
-  width: 36px;
-  height: 28px;
-  margin: 3px;
+  border-radius: 18px;
+  width: 52px;
+  margin: 0;
   cursor: pointer;
   transition: background-color var(--transition-fast);
 }
@@ -767,23 +769,37 @@ header .mega-menu-column.resources h4 {
   color: var(--text-color-secondary);
 }
 
-/* Industries mega menu - simple grid */
+/* Industries mega menu - 4-column grid + featured sidebar */
 header .mega-menu-content.mega-industries {
   display: none;
 }
 
 header .mega-menu-content.mega-industries.active {
-  display: block;
+  display: flex;
+  gap: 48px;
+}
+
+header .mega-menu-industries-main {
+  flex: 1;
+}
+
+header .mega-menu-industries-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0 0 20px;
 }
 
 header .mega-menu-industries-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px 32px;
-  margin-bottom: 32px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px 32px;
 }
 
 header .mega-menu-industries-grid a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-size: 14px;
   color: var(--text-color);
   padding: 8px 0;
@@ -794,20 +810,27 @@ header .mega-menu-industries-grid a:hover {
   color: var(--link-color);
 }
 
+header .mega-menu-industries-grid a img {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
 header .mega-menu-industries-featured {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
-  padding-top: 24px;
-  border-top: 1px solid rgb(0 0 0 / 10%);
+  width: 280px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 header .mega-menu-industries-featured-item strong {
   display: block;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-color);
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
 
 header .mega-menu-industries-featured-item strong a {
@@ -819,31 +842,29 @@ header .mega-menu-industries-featured-item strong a:hover {
   color: var(--link-color);
 }
 
-header .mega-menu-industries-featured-item span {
+header .mega-menu-industries-featured-item p {
   font-size: 13px;
   color: var(--text-color-secondary);
+  line-height: 1.5;
+  margin: 0;
 }
 
-/* About us mega menu - three columns */
+/* About us mega menu - three columns with empty fourth */
 header .mega-menu-content.mega-about {
   display: none;
 }
 
 header .mega-menu-content.mega-about.active {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1.5fr 1fr 1fr 0.5fr;
   gap: 48px;
 }
 
 header .mega-menu-about-column h4 {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 1px;
   color: var(--text-color-secondary);
-  margin: 0 0 16px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid rgb(0 0 0 / 10%);
+  margin: 0 0 20px;
 }
 
 header .mega-menu-about-column ul {
@@ -853,7 +874,7 @@ header .mega-menu-about-column ul {
 }
 
 header .mega-menu-about-column li {
-  padding: 6px 0;
+  padding: 8px 0;
 }
 
 header .mega-menu-about-column li a {
@@ -864,4 +885,17 @@ header .mega-menu-about-column li a {
 
 header .mega-menu-about-column li a:hover {
   color: var(--link-color);
+}
+
+/* Social links with icons */
+header .mega-menu-about-column.social li a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+header .mega-menu-about-column.social li a img {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }

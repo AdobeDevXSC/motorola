@@ -322,13 +322,42 @@ function buildIndustriesMegaMenu(nav, container) {
     .find((div) => div.querySelector('h2')?.textContent.trim() === 'Industries');
   if (!industriesDiv) return;
 
+  // Map industry names to icon files
+  const industryIcons = {
+    Corrections: 'industry-corrections.svg',
+    Education: 'industry-education.svg',
+    'Fire & EMS': 'industry-fire-ems.svg',
+    Healthcare: 'industry-healthcare.svg',
+    Hospitality: 'industry-hospitality.svg',
+    'Law Enforcement': 'industry-law-enforcement.svg',
+    Manufacturing: 'industry-manufacturing.svg',
+    Mining: 'industry-mining.svg',
+    'U.S. Federal Government': 'industry-us-federal-government.svg',
+    Military: 'industry-military.svg',
+    'Oil & Gas': 'industry-oil-gas.svg',
+    Retail: 'industry-retail.svg',
+    'Transportation & Logistics': 'industry-transportation-logistics.svg',
+    Utilities: 'industry-utilities.svg',
+    Stadiums: 'industry-stadiums.svg',
+  };
+
   const content = document.createElement('div');
   content.className = 'mega-menu-content mega-industries';
   content.dataset.menu = 'industries';
 
+  // Main section (title + grid)
+  const main = document.createElement('div');
+  main.className = 'mega-menu-industries-main';
+
+  const title = document.createElement('h3');
+  title.className = 'mega-menu-industries-title';
+  title.textContent = 'Industries';
+  main.appendChild(title);
+
   const grid = document.createElement('div');
   grid.className = 'mega-menu-industries-grid';
 
+  // Featured section (sidebar)
   const featured = document.createElement('div');
   featured.className = 'mega-menu-industries-featured';
 
@@ -357,23 +386,36 @@ function buildIndustriesMegaMenu(nav, container) {
 
         const description = li.textContent.replace(strong.textContent, '').trim();
         if (description) {
-          const span = document.createElement('span');
-          span.textContent = description;
-          item.appendChild(span);
+          const p = document.createElement('p');
+          p.textContent = description;
+          item.appendChild(p);
         }
 
         featured.appendChild(item);
       } else if (link) {
-        // Simple link
+        // Industry link with icon
         const a = document.createElement('a');
         a.href = link.href;
-        a.textContent = link.textContent;
+
+        const iconName = industryIcons[link.textContent.trim()];
+        if (iconName) {
+          const img = document.createElement('img');
+          img.src = `/icons/${iconName}`;
+          img.alt = '';
+          a.appendChild(img);
+        }
+
+        const span = document.createElement('span');
+        span.textContent = link.textContent;
+        a.appendChild(span);
+
         grid.appendChild(a);
       }
     });
   }
 
-  content.appendChild(grid);
+  main.appendChild(grid);
+  content.appendChild(main);
   content.appendChild(featured);
   container.appendChild(content);
 }
@@ -386,6 +428,15 @@ function buildAboutMegaMenu(nav, container) {
     .find((div) => div.querySelector('h2')?.textContent.trim() === 'About us');
   if (!aboutDiv) return;
 
+  // Map social network names to icon files
+  const socialIcons = {
+    LinkedIn: 'social-linkedin.svg',
+    Facebook: 'social-facebook.svg',
+    X: 'social-x.svg',
+    Instagram: 'social-instagram.svg',
+    YouTube: 'social-youtube.svg',
+  };
+
   const content = document.createElement('div');
   content.className = 'mega-menu-content mega-about';
   content.dataset.menu = 'about-us';
@@ -397,6 +448,12 @@ function buildAboutMegaMenu(nav, container) {
       column.className = 'mega-menu-about-column';
 
       const title = li.childNodes[0].textContent.trim();
+      const isSocialColumn = title.toLowerCase().includes('social');
+
+      if (isSocialColumn) {
+        column.classList.add('social');
+      }
+
       const h4 = document.createElement('h4');
       h4.textContent = title;
       column.appendChild(h4);
@@ -410,7 +467,22 @@ function buildAboutMegaMenu(nav, container) {
           if (link) {
             const a = document.createElement('a');
             a.href = link.href;
-            a.textContent = link.textContent;
+
+            // Add social icon if this is the social column
+            if (isSocialColumn) {
+              const iconName = socialIcons[link.textContent.trim()];
+              if (iconName) {
+                const img = document.createElement('img');
+                img.src = `/icons/${iconName}`;
+                img.alt = '';
+                a.appendChild(img);
+              }
+            }
+
+            const span = document.createElement('span');
+            span.textContent = link.textContent;
+            a.appendChild(span);
+
             newLi.appendChild(a);
           } else {
             newLi.textContent = subLi.textContent;
@@ -422,9 +494,144 @@ function buildAboutMegaMenu(nav, container) {
 
       content.appendChild(column);
     });
+
+    // Add empty fourth column for spacing
+    const emptyColumn = document.createElement('div');
+    emptyColumn.className = 'mega-menu-about-column';
+    content.appendChild(emptyColumn);
   }
 
   container.appendChild(content);
+}
+
+/**
+ * Builds the primary tools (Search, Support, Cart) with icons added programmatically
+ */
+function buildPrimaryTools(toolsDiv) {
+  const primaryTools = document.createElement('div');
+  primaryTools.className = 'nav-primary-tools';
+
+  const ul = document.createElement('ul');
+
+  // Icon mapping for tools
+  const iconMap = {
+    Search: 'header-search.svg',
+    Support: 'header-support.svg',
+    Cart: 'header-cart.svg',
+    'Sign In': 'header-user.svg',
+  };
+
+  const toolsList = toolsDiv.querySelector('ul');
+  if (toolsList) {
+    toolsList.querySelectorAll(':scope > li').forEach((li) => {
+      const link = li.querySelector('a');
+      const text = link ? link.textContent.trim() : li.textContent.trim();
+
+      if (text === 'Search') {
+        // Build search form programmatically
+        const searchLi = document.createElement('li');
+        const searchForm = document.createElement('form');
+        searchForm.className = 'search-form';
+        searchForm.action = '/search';
+        searchForm.method = 'get';
+
+        const searchInput = document.createElement('input');
+        searchInput.type = 'search';
+        searchInput.name = 'q';
+        searchInput.placeholder = text; // Use the text for translation
+        searchInput.autocomplete = 'off';
+
+        const searchButton = document.createElement('button');
+        searchButton.type = 'submit';
+        searchButton.setAttribute('aria-label', text);
+
+        const searchIcon = document.createElement('img');
+        searchIcon.src = `/icons/${iconMap.Search}`;
+        searchIcon.alt = '';
+        searchButton.appendChild(searchIcon);
+
+        searchForm.appendChild(searchInput);
+        searchForm.appendChild(searchButton);
+        searchLi.appendChild(searchForm);
+        ul.appendChild(searchLi);
+      } else {
+        // Regular tool item with icon
+        const newLi = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = link ? link.href : '#';
+
+        // Add icon
+        const iconName = iconMap[text];
+        if (iconName) {
+          const icon = document.createElement('img');
+          icon.src = `/icons/${iconName}`;
+          icon.alt = '';
+          a.appendChild(icon);
+        }
+
+        // Add text
+        const span = document.createElement('span');
+        span.textContent = text;
+        a.appendChild(span);
+
+        newLi.appendChild(a);
+        ul.appendChild(newLi);
+      }
+    });
+  }
+
+  primaryTools.appendChild(ul);
+  return primaryTools;
+}
+
+/**
+ * Builds the nav sections (Sign In, Products, Industries, About us) and tools (Contact sales)
+ */
+function buildNavSectionsAndTools(sectionsDiv) {
+  const navSections = document.createElement('div');
+  navSections.className = 'nav-sections';
+
+  const navTools = document.createElement('div');
+  navTools.className = 'nav-tools';
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'default-content-wrapper';
+
+  const ul = document.createElement('ul');
+
+  const sectionsList = sectionsDiv.querySelector('ul');
+  if (sectionsList) {
+    sectionsList.querySelectorAll(':scope > li').forEach((li) => {
+      const text = li.textContent.trim();
+
+      const newLi = document.createElement('li');
+      // Products, Industries, About us - just text, will be wired to mega menu
+      newLi.textContent = text;
+
+      ul.appendChild(newLi);
+    });
+  }
+
+  wrapper.appendChild(ul);
+  navSections.appendChild(wrapper);
+
+  // Contact sales button
+  const contactP = sectionsDiv.querySelector('p');
+  if (contactP) {
+    const contactLink = contactP.querySelector('a');
+    if (contactLink) {
+      const toolsUl = document.createElement('ul');
+      const toolsLi = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = contactLink.href;
+      a.textContent = contactLink.textContent;
+      toolsLi.appendChild(a);
+      toolsUl.appendChild(toolsLi);
+      navTools.appendChild(toolsUl);
+    }
+  }
+
+  return { navSections, navTools };
 }
 
 /**
@@ -443,18 +650,64 @@ export default async function decorate(block) {
   nav.id = 'nav';
   while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
 
-  // Two-row header: brand + primary-tools (row 1), sections + tools (row 2)
-  const classes = ['brand', 'primary-tools', 'sections', 'tools'];
-  classes.forEach((c, i) => {
-    const section = nav.children[i];
-    if (section) section.classList.add(`nav-${c}`);
+  // Find sections by h2 headings
+  const allDivs = Array.from(nav.querySelectorAll(':scope > div'));
+
+  // First div is brand (logo)
+  const brandDiv = allDivs[0];
+  if (brandDiv) {
+    brandDiv.className = 'nav-brand';
+    const brandLink = brandDiv.querySelector('.button');
+    if (brandLink) {
+      brandLink.className = '';
+      brandLink.closest('.button-container').className = '';
+    }
+  }
+
+  // Find Tools and Sections divs by h2
+  let toolsDiv = null;
+  let sectionsDiv = null;
+
+  allDivs.forEach((div) => {
+    const h2 = div.querySelector('h2');
+    if (h2) {
+      const heading = h2.textContent.trim();
+      if (heading === 'Tools') {
+        toolsDiv = div;
+      } else if (heading === 'Sections') {
+        sectionsDiv = div;
+      }
+    }
   });
 
-  const navBrand = nav.querySelector('.nav-brand');
-  const brandLink = navBrand?.querySelector('.button');
-  if (brandLink) {
-    brandLink.className = '';
-    brandLink.closest('.button-container').className = '';
+  // Build primary tools (Search, Support, Cart)
+  let navPrimaryTools = null;
+  if (toolsDiv) {
+    navPrimaryTools = buildPrimaryTools(toolsDiv);
+    // Remove original div
+    toolsDiv.remove();
+  }
+
+  // Build nav sections (Sign In, Products, Industries, About us) and tools (Contact sales)
+  let navSections = null;
+  let navTools = null;
+  if (sectionsDiv) {
+    const result = buildNavSectionsAndTools(sectionsDiv);
+    navSections = result.navSections;
+    navTools = result.navTools;
+    // Remove original div
+    sectionsDiv.remove();
+  }
+
+  // Insert built elements after brand
+  if (navPrimaryTools) {
+    brandDiv.after(navPrimaryTools);
+  }
+  if (navSections && navPrimaryTools) {
+    navPrimaryTools.after(navSections);
+  }
+  if (navTools && navSections) {
+    navSections.after(navTools);
   }
 
   // Build mega menu container
@@ -466,7 +719,6 @@ export default async function decorate(block) {
   buildAboutMegaMenu(nav, megaMenu);
 
   // Wire up nav section clicks to mega menu
-  const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
     const menuMap = {
       Products: 'products',
