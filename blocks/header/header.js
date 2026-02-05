@@ -671,136 +671,6 @@ function buildAboutMegaMenu(nav, container) {
 }
 
 /**
- * Builds the primary tools (Search, Support, Cart) with icons added programmatically
- */
-function buildPrimaryTools(toolsDiv) {
-  const primaryTools = document.createElement('div');
-  primaryTools.className = 'nav-primary-tools';
-
-  const ul = document.createElement('ul');
-
-  // Icon mapping for tools
-  const iconMap = {
-    Search: 'header-search.svg',
-    Support: 'header-support.svg',
-    Cart: 'header-cart.svg',
-    'Sign In': 'header-user.svg',
-  };
-
-  const toolsList = toolsDiv.querySelector('ul');
-  if (toolsList) {
-    toolsList.querySelectorAll(':scope > li').forEach((li) => {
-      const link = li.querySelector('a');
-      const text = link ? link.textContent.trim() : li.textContent.trim();
-
-      if (text === 'Search') {
-        // Build search form programmatically
-        const searchLi = document.createElement('li');
-        const searchForm = document.createElement('form');
-        searchForm.className = 'search-form';
-        searchForm.action = '/search';
-        searchForm.method = 'get';
-
-        const searchInput = document.createElement('input');
-        searchInput.type = 'search';
-        searchInput.name = 'q';
-        searchInput.placeholder = text; // Use the text for translation
-        searchInput.autocomplete = 'off';
-
-        const searchButton = document.createElement('button');
-        searchButton.type = 'submit';
-        searchButton.setAttribute('aria-label', text);
-
-        const searchIcon = document.createElement('img');
-        searchIcon.src = `/icons/${iconMap.Search}`;
-        searchIcon.alt = '';
-        searchButton.appendChild(searchIcon);
-
-        searchForm.appendChild(searchInput);
-        searchForm.appendChild(searchButton);
-        searchLi.appendChild(searchForm);
-        ul.appendChild(searchLi);
-      } else {
-        // Regular tool item with icon
-        const newLi = document.createElement('li');
-        const a = document.createElement('a');
-        a.href = link ? link.href : '#';
-
-        // Add icon
-        const iconName = iconMap[text];
-        if (iconName) {
-          const icon = document.createElement('img');
-          icon.src = `/icons/${iconName}`;
-          icon.alt = '';
-          a.appendChild(icon);
-        }
-
-        // Add text
-        const span = document.createElement('span');
-        span.textContent = text;
-        a.appendChild(span);
-
-        newLi.appendChild(a);
-        ul.appendChild(newLi);
-      }
-    });
-  }
-
-  primaryTools.appendChild(ul);
-  return primaryTools;
-}
-
-/**
- * Builds the nav sections (Sign In, Products, Industries, About us) and tools (Contact sales)
- */
-function buildNavSectionsAndTools(sectionsDiv) {
-  const navSections = document.createElement('div');
-  navSections.className = 'nav-sections';
-
-  const navTools = document.createElement('div');
-  navTools.className = 'nav-tools';
-
-  const wrapper = document.createElement('div');
-  wrapper.className = 'default-content-wrapper';
-
-  const ul = document.createElement('ul');
-
-  const sectionsList = sectionsDiv.querySelector('ul');
-  if (sectionsList) {
-    sectionsList.querySelectorAll(':scope > li').forEach((li) => {
-      const text = li.textContent.trim();
-
-      const newLi = document.createElement('li');
-      // Products, Industries, About us - just text, will be wired to mega menu
-      newLi.textContent = text;
-
-      ul.appendChild(newLi);
-    });
-  }
-
-  wrapper.appendChild(ul);
-  navSections.appendChild(wrapper);
-
-  // Contact sales button
-  const contactP = sectionsDiv.querySelector('p');
-  if (contactP) {
-    const contactLink = contactP.querySelector('a');
-    if (contactLink) {
-      const toolsUl = document.createElement('ul');
-      const toolsLi = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = contactLink.href;
-      a.textContent = contactLink.textContent;
-      toolsLi.appendChild(a);
-      toolsUl.appendChild(toolsLi);
-      navTools.appendChild(toolsUl);
-    }
-  }
-
-  return { navSections, navTools };
-}
-
-/**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
  */
@@ -822,6 +692,14 @@ export default async function decorate(block) {
     brandDiv.classList.add('nav-brand');
     // Replace text link with logo image
     buildBrandLogo(brandDiv);
+    // Remove button classes from brand link (AEM decoration adds these to links in paragraphs)
+    brandDiv.querySelectorAll('.button').forEach((button) => {
+      button.className = '';
+      const buttonContainer = button.closest('.button-container');
+      if (buttonContainer) {
+        buttonContainer.className = '';
+      }
+    });
   }
 
   // Build primary tools (Search, Support, Cart, Sign In)
@@ -839,36 +717,6 @@ export default async function decorate(block) {
   }
   if (navTools) {
     nav.appendChild(navTools);
-  }
-
-  // Build primary tools (Search, Support, Cart)
-  let navPrimaryTools = null;
-  if (toolsDiv) {
-    navPrimaryTools = buildPrimaryTools(toolsDiv);
-    // Remove original div
-    toolsDiv.remove();
-  }
-
-  // Build nav sections (Sign In, Products, Industries, About us) and tools (Contact sales)
-  let navSections = null;
-  let navTools = null;
-  if (sectionsDiv) {
-    const result = buildNavSectionsAndTools(sectionsDiv);
-    navSections = result.navSections;
-    navTools = result.navTools;
-    // Remove original div
-    sectionsDiv.remove();
-  }
-
-  // Insert built elements after brand
-  if (navPrimaryTools) {
-    brandDiv.after(navPrimaryTools);
-  }
-  if (navSections && navPrimaryTools) {
-    navPrimaryTools.after(navSections);
-  }
-  if (navTools && navSections) {
-    navSections.after(navTools);
   }
 
   // Build mega menu container
