@@ -3,7 +3,7 @@
 /* ===== FOOTER BASE ===== */
 footer {
   background-color: #111;
-  color: #fff;
+  color: rgb(255 255 255 / 60%);
   font-size: var(--body-font-size-xs);
 }
 
@@ -22,7 +22,7 @@ footer .footer p {
 }
 
 footer a:any-link {
-  color: rgb(255 255 255 / 80%);
+  color: rgb(255 255 255 / 60%);
   text-decoration: none;
   transition: color var(--transition-fast);
   background: none;
@@ -50,10 +50,26 @@ footer p {
   margin: 0;
 }
 
-/* ===== FOOTER LOGO (first section) ===== */
+/* ===== ROW 1: Logo + Social Icons (first section) ===== */
 footer .footer .footer > .section:first-child {
-  padding-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 32px 24px;
   border-bottom: 1px solid rgb(255 255 255 / 15%);
+}
+
+footer .footer .footer > .section:first-child .default-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+
+footer .footer .footer > .section:first-child p {
+  flex-shrink: 0;
 }
 
 footer .footer .footer > .section:first-child img {
@@ -62,88 +78,128 @@ footer .footer .footer > .section:first-child img {
   filter: brightness(0) invert(1);
 }
 
-/* ===== SOCIAL LINKS (second section) ===== */
+/* Social icons list */
+footer .footer .footer > .section:first-child ul {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+footer .footer .footer > .section:first-child li {
+  margin: 0;
+}
+
+footer .footer .footer > .section:first-child ul img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+  opacity: 0.6;
+  transition: opacity var(--transition-fast);
+}
+
+footer .footer .footer > .section:first-child a:hover img {
+  opacity: 1;
+}
+
+footer .footer .footer > .section:first-child a:hover {
+  text-decoration: none;
+}
+
+/* ===== ROW 2: Link Columns (second section) ===== */
 footer .footer .footer > .section:nth-child(2) {
-  padding: 24px;
+  padding: 32px 24px;
   border-bottom: 1px solid rgb(255 255 255 / 15%);
 }
 
-footer .footer .footer > .section:nth-child(2) ul {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Main columns container - the outer ul */
+footer .footer .footer > .section:nth-child(2) > .default-content-wrapper > ul {
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 24px;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-footer .footer .footer > .section:nth-child(2) li {
+/* Each column - the li items (About Us, Partners, etc.) */
+
+/* Column titles: full white, uppercase */
+footer .footer .footer > .section:nth-child(2) > .default-content-wrapper > ul > li {
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgb(255 255 255);
   margin: 0;
 }
 
-footer .footer .footer > .section:nth-child(2) img {
-  width: 24px;
-  height: 24px;
-  filter: brightness(0) invert(1);
-  opacity: 0.8;
-  transition: opacity var(--transition-fast);
+/* Nested links within each column */
+footer .footer .footer > .section:nth-child(2) > .default-content-wrapper > ul > li > ul {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
 }
 
-footer .footer .footer > .section:nth-child(2) a:hover img {
-  opacity: 1;
-}
-
-/* ===== FOOTER LINK COLUMNS (about-us and training sections) ===== */
-footer .about-us-container,
-footer .training-container {
-  padding: 32px 24px;
-}
-
-footer .about-us-wrapper .about-us,
-footer .training-wrapper .training {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
-
-footer .about-us-wrapper .about-us > div,
-footer .training-wrapper .training > div {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-footer .about-us-wrapper .about-us > div > div,
-footer .training-wrapper .training > div > div {
+footer .footer .footer > .section:nth-child(2) > .default-content-wrapper > ul > li > ul > li {
+  font-weight: 400;
+  font-size: 13px;
+  text-transform: none;
+  letter-spacing: normal;
+  color: rgb(255 255 255 / 60%);
   padding: 4px 0;
 }
 
-footer .about-us-wrapper a,
-footer .training-wrapper a {
+footer .footer .footer > .section:nth-child(2) a {
   font-size: 13px;
   line-height: 1.5;
+  color: rgb(255 255 255 / 60%);
 }
 
-/* ===== TRADEMARK TEXT (fifth section) ===== */
-footer .footer .footer > .section:nth-child(5) {
+footer .footer .footer > .section:nth-child(2) a:hover {
+  color: #fff;
+}
+
+/* ===== ROW 3: Trademark Text (third section) ===== */
+footer .footer .footer > .section:nth-child(3) {
   padding: 24px;
-  border-top: 1px solid rgb(255 255 255 / 15%);
+  border-bottom: 1px solid rgb(255 255 255 / 15%);
   text-align: center;
 }
 
-footer .footer .footer > .section:nth-child(5) p {
+footer .footer .footer > .section:nth-child(3) p {
   font-size: 11px;
   color: rgb(255 255 255 / 60%);
   line-height: 1.6;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
-/* ===== BOTTOM LEGAL LINKS (last section) ===== */
+/* ===== ROW 4: Copyright + Legal Links (last section) ===== */
+
+/* NO horizontal rule above - just spacing */
 footer .footer .footer > .section:last-child {
   padding: 24px;
-  border-top: 1px solid rgb(255 255 255 / 15%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+footer .footer .footer > .section:last-child .default-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+footer .footer .footer > .section:last-child p {
+  font-size: 12px;
+  color: rgb(255 255 255 / 60%);
+  margin: 0;
 }
 
 footer .footer .footer > .section:last-child ul {
@@ -158,11 +214,13 @@ footer .footer .footer > .section:last-child ul {
 
 footer .footer .footer > .section:last-child li {
   margin: 0;
+  font-size: 12px;
+  color: rgb(255 255 255 / 60%);
 }
 
 footer .footer .footer > .section:last-child a:any-link {
   font-size: 12px;
-  color: rgb(255 255 255 / 70%);
+  color: rgb(255 255 255 / 60%);
 }
 
 footer .footer .footer > .section:last-child a:any-link:hover {
@@ -175,29 +233,62 @@ footer .footer .footer > .section:last-child a:any-link:hover {
     padding: 24px 32px;
   }
 
-  footer .footer .footer > .section:nth-child(2) ul {
-    justify-content: flex-start;
+  /* Row 1: Logo left, social icons right */
+  footer .footer .footer > .section:first-child {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  footer .about-us-wrapper .about-us {
+  footer .footer .footer > .section:first-child .default-content-wrapper {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Link columns - responsive grid on desktop */
+  footer .footer .footer > .section:nth-child(2) > .default-content-wrapper > ul {
     grid-template-columns: repeat(4, 1fr);
     gap: 32px;
   }
 
-  footer .training-wrapper .training {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-  }
-
-  footer .footer .footer > .section:nth-child(5) {
+  /* Trademark left-aligned on desktop */
+  footer .footer .footer > .section:nth-child(3) {
     text-align: left;
   }
 
-  footer .footer .footer > .section:nth-child(5) p {
+  footer .footer .footer > .section:nth-child(3) p {
     margin: 0;
+    max-width: none;
+  }
+
+  /* Copyright row: copyright left, links right on same line */
+  footer .footer .footer > .section:last-child {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer .footer .footer > .section:last-child .default-content-wrapper {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  footer .footer .footer > .section:last-child p {
+    flex-shrink: 0;
   }
 
   footer .footer .footer > .section:last-child ul {
-    justify-content: flex-start;
+    justify-content: flex-end;
+  }
+}
+
+/* ===== LARGE DESKTOP - 7 COLUMNS ===== */
+@media (width >= 1200px) {
+  footer .footer .footer > .section:nth-child(2) > .default-content-wrapper > ul {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 24px;
   }
 }

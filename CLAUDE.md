@@ -137,6 +137,61 @@ main .section.image-full-width .default-content-wrapper p:has(picture) {
 
 This works at all viewport sizes by calculating the offset from the centered container.
 
+### header (Two-Row Layout)
+
+Two-row fixed header with different backgrounds per row.
+
+**Structure** (nav.html divs in order):
+1. `nav-brand` - Logo (uses `/icons/logo.svg`, NOT inverted)
+2. `nav-primary-tools` - Search, Support dropdown, Cart, Sign in icons
+3. `nav-sections` - Products, Industries, About us (with dropdown arrows)
+4. `nav-tools` - Contact sales button
+
+**Row 1 (White, 64px)**: Brand + Primary tools
+- Background: `#fff`
+- Icons from `/icons/header-*.svg` (search, support, cart, user)
+- Support has dropdown arrow (`:nth-child(2)::after`)
+
+**Row 2 (Light Grey, 64px)**: Sections + Tools
+- Background: `rgb(242 242 242)`
+- Nav items have `.nav-drop` class if they have submenus
+- Contact sales: black pill button (`rgb(0 0 0 / 95%)`)
+
+**CSS Grid Layout** (desktop):
+```css
+grid-template:
+  'brand primary-tools' 64px
+  'sections tools' 64px / 1fr auto;
+```
+
+**Mobile**: Hamburger menu, primary-tools visible, sections/tools hidden until expanded.
+
+**Mega-menu content**: Additional divs with `<h2>` titles (Support, Products, Industries, About us) are hidden by default. JS will wire these up for dropdown content in future iteration.
+
+### footer (Four-Row Layout)
+
+Dark footer (`#111`) with 60% white default text color.
+
+**Structure** (4 sections):
+1. **Logo + Social Row**: Logo left, social SVG icons right (same row)
+2. **Link Columns**: 7 columns (desktop), uppercase titles in full white
+3. **Trademark**: Legal blurb text
+4. **Copyright Row**: Copyright left, legal links right (same line)
+
+**Color Scheme**:
+- Default text/links: `rgb(255 255 255 / 60%)`
+- Column titles: `rgb(255 255 255)` (full white)
+- Hover: `#fff`
+
+**Social Icons**: Use SVGs from `/icons/social-*.svg` (linkedin, facebook, x, instagram, youtube)
+
+**Horizontal Rules**: Added via CSS `border-bottom` on sections 1, 2, 3 (not on last section)
+
+**CSS Grid** for link columns:
+- Mobile: 1 column
+- Tablet (900px+): 4 columns
+- Desktop (1200px+): 7 columns
+
 ---
 
 ## Page Structure (en-us.html)
@@ -158,7 +213,11 @@ This works at all viewport sizes by calculating the offset from the centered con
 
 **Images** (`/content/images/`): news-assist-suites.jpg, news-manet-radio.jpg, news-avigilon-alerts.png, news-the-realreal.png, news-android-911.jpg
 
-**Icons** (`/icons/`): icon-about.svg, icon-newsroom.svg, icon-investors.svg, icon-careers.svg, icon-shop.svg
+**Icons** (`/icons/`):
+- **Page icons**: icon-about.svg, icon-newsroom.svg, icon-investors.svg, icon-careers.svg, icon-shop.svg
+- **Header icons**: header-search.svg, header-support.svg, header-cart.svg, header-user.svg
+- **Social icons**: social-linkedin.svg, social-facebook.svg, social-x.svg, social-instagram.svg, social-youtube.svg
+- **Logos**: logo.svg (dark, for light backgrounds), logo-inverted.svg (white, for dark backgrounds)
 
 ---
 
